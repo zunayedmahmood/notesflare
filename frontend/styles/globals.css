@@ -1,0 +1,70 @@
+/* styles/globals.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* ─── Design Tokens ─────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg-base:         #0E0E10;
+  --bg-surface:      #16161A;
+  --bg-elevated:     #1C1C22;
+  --border-subtle:   #2A2A35;
+
+  /* Text */
+  --text-primary:    #E8E8F0;
+  --text-secondary:  #6B6B80;
+  --text-muted:      #3A3A50;
+
+  /* Accent */
+  --accent-flare:    #7C6AF7;
+  --accent-flare-dim:#3D356B;
+  --accent-burst:    #4A9EFF;
+
+  /* Typography */
+  --font-writing:    'iA Writer Quattro', 'Courier Prime', 'Courier New', monospace;
+  --font-ui:         'Inter', system-ui, -apple-system, sans-serif;
+  --text-size-writing: 18px;
+  --text-size-ui:    13px;
+  --line-height-writing: 1.85;
+
+  /* Layout */
+  --sidebar-width:   220px;
+  --writing-max-width: 680px;
+  --writing-padding-x: 60px;
+  --writing-padding-y: 80px;
+}
+
+/* ─── Reset ──────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: var(--text-size-ui);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent default scrollbar style from conflicting */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 2px;
+}
+
+/* ─── Selection ──────────────────────────────────── */
+::selection {
+  background: var(--accent-flare-dim);
+  color: var(--text-primary);
+}

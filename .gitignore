@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.venv/
+
+# Build outputs
+frontend/out/
+frontend/.next/
+electron/dist/
+
+# Database (user data — do not commit)
+storage/*.db
+storage/*.db-shm
+storage/*.db-wal
+
+# Environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
