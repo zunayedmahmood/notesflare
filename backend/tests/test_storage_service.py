@@ -1,10 +1,10 @@
 # backend/tests/test_storage_service.py
 """
-Tests: storage_service.py
+Tests: append_service.py, stream_service.py, and storage_service.py in V1.1
 
 Covers:
-  - save_content: creates entry on first save, updates on subsequent saves
-  - save_content: updates bursts.updated_at (critical for continuity window)
+  - append_chunk: creates entry on first append, appends on subsequent calls
+  - append_chunk: updates bursts.updated_at (critical for continuity window)
   - get_app_state: returns nulls when no session exists
   - update_app_state: persists flareon and burst IDs
 """
@@ -14,6 +14,8 @@ import sqlite3
 import services.storage_service as storage_service
 import services.flareon_service as flareon_service
 import services.burst_service as burst_service
+import services.append_service as append_service
+import services.stream_service as stream_service
 
 
 @pytest.fixture(autouse=True)
@@ -21,70 +23,69 @@ def inject_test_db(test_db: sqlite3.Connection, monkeypatch):
     monkeypatch.setattr("services.storage_service.get_db", lambda: test_db)
     monkeypatch.setattr("services.flareon_service.get_db", lambda: test_db)
     monkeypatch.setattr("services.burst_service.get_db", lambda: test_db)
+    monkeypatch.setattr("services.append_service.get_db", lambda: test_db)
+    monkeypatch.setattr("services.stream_service.get_db", lambda: test_db)
 
 
 @pytest.mark.unit
-def test_save_content_creates_burst_entry(test_db):
+def test_append_chunk_creates_burst_entry(test_db):
     flareon = flareon_service.create_flareon("Test")
     burst = burst_service.get_or_create_active_burst(flareon["id"])
 
-    result = storage_service.save_content(burst["id"], "Hello world")
+    result = append_service.append_chunk(burst["id"], "Hello world")
 
-    assert isinstance(result, int) and result > 0, (
-        f"[storage_service.save_content] Return value must be a positive integer burst_entry_id.\n"
+    assert isinstance(result, int) and result == 0, (
+        f"[append_service.append_chunk] First sequence number must be 0.\n"
         f"  Returned : {result}\n"
-        f"  Expected : positive integer\n"
-        f"  Fix      : After INSERT or UPDATE, return the burst_entry row id."
+        f"  Expected : 0"
     )
 
     row = test_db.execute(
-        "SELECT content FROM burst_entries WHERE burst_id = ?", (burst["id"],)
+        "SELECT content_chunk FROM burst_entries WHERE burst_id = ?", (burst["id"],)
     ).fetchone()
 
     assert row is not None, (
-        f"[storage_service.save_content] No row found in burst_entries after save.\n"
-        f"  burst_id : {burst['id']}\n"
-        f"  Fix      : Ensure INSERT INTO burst_entries commits successfully."
+        f"[append_service.append_chunk] No row found in burst_entries after append.\n"
+        f"  burst_id : {burst['id']}"
     )
-    assert row["content"] == "Hello world", (
-        f"[storage_service.save_content] Saved content does not match input.\n"
+    assert row["content_chunk"] == "Hello world", (
+        f"[append_service.append_chunk] Saved content chunk does not match input.\n"
         f"  Input    : 'Hello world'\n"
-        f"  Saved    : '{row['content']}'\n"
-        f"  Fix      : Verify the content parameter is correctly bound in the SQL query."
+        f"  Saved    : '{row['content_chunk']}'"
     )
 
 
 @pytest.mark.unit
-def test_save_content_updates_existing_entry(test_db):
-    """Saving twice to the same burst updates, not duplicates, the burst_entry."""
+def test_append_chunk_appends_to_entry_log(test_db):
+    """Appending twice to the same burst creates two entries in sequence."""
     flareon = flareon_service.create_flareon("Update Test")
     burst = burst_service.get_or_create_active_burst(flareon["id"])
 
-    storage_service.save_content(burst["id"], "Draft one")
-    storage_service.save_content(burst["id"], "Draft two — updated")
+    seq1 = append_service.append_chunk(burst["id"], "Hello ")
+    seq2 = append_service.append_chunk(burst["id"], "world!")
+
+    assert seq1 == 0
+    assert seq2 == 1
 
     rows = test_db.execute(
-        "SELECT content FROM burst_entries WHERE burst_id = ?", (burst["id"],)
+        "SELECT content_chunk, sequence_number FROM burst_entries WHERE burst_id = ? ORDER BY sequence_number ASC",
+        (burst["id"],)
     ).fetchall()
 
-    assert len(rows) == 1, (
-        f"[storage_service.save_content] Expected exactly 1 burst_entry row after two saves.\n"
-        f"  Found : {len(rows)} rows\n"
-        f"  Each burst has at most one burst_entry in V1 (UNIQUE constraint on burst_id).\n"
-        f"  Fix   : Use INSERT OR REPLACE, or check-then-update logic. "
-        f"Do not INSERT a new row on every save call."
+    assert len(rows) == 2, (
+        f"[append_service.append_chunk] Expected exactly 2 burst_entry rows after two appends.\n"
+        f"  Found : {len(rows)} rows"
     )
-    assert rows[0]["content"] == "Draft two — updated", (
-        f"[storage_service.save_content] Content was not updated after second save.\n"
-        f"  Expected : 'Draft two — updated'\n"
-        f"  Found    : '{rows[0]['content']}'\n"
-        f"  Fix      : The UPDATE branch of the upsert logic must replace the content."
-    )
+    assert rows[0]["content_chunk"] == "Hello "
+    assert rows[1]["content_chunk"] == "world!"
+
+    reconstructed = stream_service.reconstruct_burst(burst["id"])
+    assert reconstructed == "Hello world!"
 
 
 @pytest.mark.unit
-def test_save_content_updates_burst_updated_at(test_db):
-    """Every save must refresh bursts.updated_at — this is what the continuity rule reads."""
+def test_append_chunk_updates_burst_updated_at(test_db):
+    """Every append must refresh bursts.updated_at — this is what the continuity rule reads."""
     import time
 
     flareon = flareon_service.create_flareon("Timing")
@@ -95,21 +96,16 @@ def test_save_content_updates_burst_updated_at(test_db):
     ).fetchone()["updated_at"]
 
     time.sleep(1.1)  # Ensure timestamp changes
-    storage_service.save_content(burst["id"], "Updated content")
+    append_service.append_chunk(burst["id"], "Updated content")
 
     after = test_db.execute(
         "SELECT updated_at FROM bursts WHERE id = ?", (burst["id"],)
     ).fetchone()["updated_at"]
 
     assert after != before, (
-        f"[storage_service.save_content] bursts.updated_at was NOT refreshed after save.\n"
+        f"[append_service.append_chunk] bursts.updated_at was NOT refreshed after append.\n"
         f"  Before save : {before}\n"
-        f"  After save  : {after}\n"
-        f"  This is the most dangerous bug in NotesFlare: if updated_at doesn't refresh,\n"
-        f"  the 30-minute continuity window calculates from burst creation time, not last\n"
-        f"  user activity. Every session longer than 30 min will spuriously create new bursts.\n"
-        f"  Fix: In storage_service.save_content, after the burst_entries upsert, run:\n"
-        f"       UPDATE bursts SET updated_at = ? WHERE id = ?"
+        f"  After save  : {after}"
     )
 
 
@@ -120,8 +116,7 @@ def test_get_app_state_returns_nulls_on_fresh_db(test_db):
     assert state["last_opened_flareon_id"] is None, (
         f"[storage_service.get_app_state] Fresh database should return null flareon_id.\n"
         f"  Returned : {state.get('last_opened_flareon_id')}\n"
-        f"  Expected : None\n"
-        f"  Fix      : app_state row is initialized with NULLs; ensure SELECT reads them as None."
+        f"  Expected : None"
     )
 
 
@@ -136,12 +131,10 @@ def test_update_and_retrieve_app_state(test_db):
     assert state["last_opened_flareon_id"] == flareon["id"], (
         f"[storage_service.update_app_state] flareon_id not persisted correctly.\n"
         f"  Stored   : {flareon['id']}\n"
-        f"  Retrieved: {state.get('last_opened_flareon_id')}\n"
-        f"  Fix      : UPDATE app_state SET last_opened_flareon_id = ? WHERE id = 1"
+        f"  Retrieved: {state.get('last_opened_flareon_id')}"
     )
     assert state["last_opened_burst_id"] == burst["id"], (
         f"[storage_service.update_app_state] burst_id not persisted correctly.\n"
         f"  Stored   : {burst['id']}\n"
-        f"  Retrieved: {state.get('last_opened_burst_id')}\n"
-        f"  Fix      : UPDATE app_state SET last_opened_burst_id = ? WHERE id = 1"
+        f"  Retrieved: {state.get('last_opened_burst_id')}"
     )

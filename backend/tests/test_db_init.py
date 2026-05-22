@@ -73,10 +73,10 @@ def test_bursts_columns(test_db: sqlite3.Connection):
 
 @pytest.mark.unit
 def test_burst_entries_columns(test_db: sqlite3.Connection):
-    """burst_entries must have: id, burst_id, content, created_at, updated_at"""
+    """burst_entries must have: id, burst_id, content_chunk, sequence_number, created_at"""
     cursor = test_db.execute("PRAGMA table_info(burst_entries)")
     cols = {row["name"] for row in cursor.fetchall()}
-    required = {"id", "burst_id", "content", "created_at", "updated_at"}
+    required = {"id", "burst_id", "content_chunk", "sequence_number", "created_at"}
     missing = required - cols
 
     assert not missing, (

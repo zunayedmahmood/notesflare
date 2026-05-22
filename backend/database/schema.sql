@@ -18,11 +18,11 @@ CREATE TABLE IF NOT EXISTS bursts (
 );
 
 CREATE TABLE IF NOT EXISTS burst_entries (
-    id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    burst_id    INTEGER NOT NULL UNIQUE REFERENCES bursts(id) ON DELETE CASCADE,
-    content     TEXT NOT NULL DEFAULT '',
-    created_at  TEXT NOT NULL DEFAULT (datetime('now')),
-    updated_at  TEXT NOT NULL DEFAULT (datetime('now'))
+    id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    burst_id         INTEGER NOT NULL REFERENCES bursts(id) ON DELETE CASCADE,
+    content_chunk    TEXT    NOT NULL DEFAULT '',
+    sequence_number  INTEGER NOT NULL DEFAULT 0,
+    created_at       TEXT    NOT NULL DEFAULT (datetime('now'))
 );
 
 CREATE TABLE IF NOT EXISTS app_state (

@@ -9,9 +9,9 @@ test.describe('Session Restore', () => {
     await page.locator('[data-testid="new-flareon-button"]').click();
     await page.locator('[data-testid="new-flareon-input"]').fill('Restore Me');
     await page.keyboard.press('Enter');
-    const textarea = page.locator('[data-testid="writing-textarea"]');
-    await textarea.waitFor({ state: 'visible' });
-    await textarea.type('This should survive a reload');
+    const streamInput = page.locator('[data-testid="stream-input"]');
+    await streamInput.waitFor({ state: 'visible' });
+    await streamInput.pressSequentially('This should survive a reload');
     await page.waitForTimeout(1500); // let autosave fire
 
     // Simulate app restart by navigating away and back
@@ -22,8 +22,8 @@ test.describe('Session Restore', () => {
     const restoredFlareon = page.locator('[data-testid="flareon-item"].active');
     await expect(restoredFlareon).toContainText('Restore Me');
 
-    const restoredTextarea = page.locator('[data-testid="writing-textarea"]');
-    await expect(restoredTextarea).toHaveValue('This should survive a reload');
+    const restoredStreamInput = page.locator('[data-testid="stream-input"]');
+    await expect(restoredStreamInput).toHaveValue('This should survive a reload');
   }, {
     annotation: {
       type: 'performance',

@@ -190,3 +190,92 @@ async def test_list_flareons_returns_ordered_list(client: AsyncClient):
         f"[GET /api/flareons] Expected at least 2 Flareons after creating two.\n"
         f"  Found : {len(data['flareons'])}"
     )
+
+
+# ─── V1.1 Route Tests ─────────────────────────────────────────────────────────
+
+@pytest.mark.api
+async def test_session_resume_fresh(client: AsyncClient):
+    response = await client.get("/api/session/resume")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["has_session"] is False
+    assert data["flareon"] is None
+    assert data["stream_content"] == ""
+
+
+@pytest.mark.api
+async def test_session_resume_existing(client: AsyncClient):
+    # 1. Create a Flareon
+    create_resp = await client.post("/api/flareons", json={"name": "Instant Resume Test"})
+    fid = create_resp.json()["id"]
+
+    # 2. Open it to set app_state
+    await client.get(f"/api/flareons/{fid}")
+
+    # 3. Resume session
+    response = await client.get("/api/session/resume")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["has_session"] is True
+    assert data["flareon"]["id"] == fid
+    assert data["flareon"]["name"] == "Instant Resume Test"
+    assert isinstance(data["burst_id"], int)
+    assert data["stream_content"] == ""
+
+
+@pytest.mark.api
+async def test_burst_append_persists_chunks(client: AsyncClient):
+    # 1. Create and open Flareon
+    create_resp = await client.post("/api/flareons", json={"name": "Append Test"})
+    fid = create_resp.json()["id"]
+    await client.get(f"/api/flareons/{fid}")
+
+    # 2. Resume to get burst_id
+    res_resp = await client.get("/api/session/resume")
+    burst_id = res_resp.json()["burst_id"]
+
+    # 3. Append chunks
+    app1 = await client.post("/api/burst/append", json={"burst_id": burst_id, "text": "Continuous "})
+    assert app1.status_code == 200
+    assert app1.json()["success"] is True
+    assert app1.json()["sequence_number"] == 0
+
+    app2 = await client.post("/api/burst/append", json={"burst_id": burst_id, "text": "Stream!"})
+    assert app2.status_code == 200
+    assert app2.json()["sequence_number"] == 1
+
+    # 4. Resume to verify reconstructed content
+    res_resp2 = await client.get("/api/session/resume")
+    assert res_resp2.json()["stream_content"] == "Continuous Stream!"
+
+
+@pytest.mark.api
+async def test_burst_append_rejects_empty(client: AsyncClient):
+    app = await client.post("/api/burst/append", json={"burst_id": 1, "text": ""})
+    assert app.status_code == 400
+    assert "empty" in app.json()["detail"]
+
+
+@pytest.mark.api
+async def test_switch_flareon(client: AsyncClient):
+    # 1. Create F1 and F2
+    f1_resp = await client.post("/api/flareons", json={"name": "F1"})
+    f1_id = f1_resp.json()["id"]
+    f2_resp = await client.post("/api/flareons", json={"name": "F2"})
+    f2_id = f2_resp.json()["id"]
+
+    # 2. Open F1
+    await client.get(f"/api/flareons/{f1_id}")
+
+    # 3. Switch to F2
+    switch_resp = await client.get(f"/api/session/switch/{f2_id}")
+    assert switch_resp.status_code == 200
+    data = switch_resp.json()
+    assert data["flareon"]["id"] == f2_id
+    assert data["flareon"]["name"] == "F2"
+
+    # 4. Resume to verify it now returns F2
+    res_resp = await client.get("/api/session/resume")
+    assert res_resp.json()["flareon"]["id"] == f2_id
+

@@ -15,7 +15,7 @@ test.describe('App Startup', () => {
       timeout: 2000,
     });
 
-    const placeholder = page.locator('[data-testid="writing-area-placeholder"]');
+    const placeholder = page.locator('[data-testid="empty-state"]');
     await expect(placeholder).toBeVisible();
     await expect(placeholder).toContainText('Select a Flareon');
   });
@@ -23,8 +23,8 @@ test.describe('App Startup', () => {
   test('writing area is not visible without a selected Flareon', async ({ page }) => {
     await page.goto('/');
 
-    const textarea = page.locator('[data-testid="writing-textarea"]');
-    await expect(textarea).not.toBeVisible();
+    const streamInput = page.locator('[data-testid="stream-input"]');
+    await expect(streamInput).not.toBeVisible();
   });
 
   test('app loads within 2 seconds', async ({ page }) => {

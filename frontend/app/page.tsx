@@ -1,39 +1,25 @@
 // app/page.tsx
 "use client";
 
-import { useState } from "react";
 import { useSession } from "@/hooks/useSession";
-import { useAutosave } from "@/hooks/useAutosave";
-import Sidebar from "@/components/Sidebar";
-import WritingArea from "@/components/WritingArea";
+import Sidebar from "@/components/sidebar/Sidebar";
+import StreamShell from "@/components/stream/StreamShell";
+import LoadingScreen from "@/components/common/LoadingScreen";
 
-export default function HomePage() {
-  const { flareons, activeFlareon, isLoading, openFlareon, createFlareon } =
-    useSession();
-
-  // The content state lives here so both WritingArea and useAutosave share it
-  const [content, setContent] = useState<string>("");
-
-  // Sync content when switching Flareons
-  useAutosave(activeFlareon?.active_burst_id ?? null, content);
+export default function StreamPage() {
+  const {
+    flareons,
+    activeFlareon,
+    activeBurstId,
+    streamContent,
+    burstStartedAt,
+    isLoading,
+    switchFlareon,
+    createFlareon,
+  } = useSession();
 
   if (isLoading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          background: "var(--bg-base)",
-          color: "var(--text-muted)",
-          fontFamily: "var(--font-ui)",
-          fontSize: "13px",
-        }}
-      >
-        {/* Silent loading — no spinner, no text in the final version */}
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   return (
@@ -47,15 +33,17 @@ export default function HomePage() {
     >
       <Sidebar
         flareons={flareons}
-        activeFlareonId={activeFlareon?.flareon.id ?? null}
-        onSelectFlareon={openFlareon}
+        activeFlareonId={activeFlareon?.id ?? null}
+        onSelectFlareon={switchFlareon}
         onCreateFlareon={createFlareon}
       />
-      <WritingArea
-        key={activeFlareon?.flareon.id ?? "empty"}
+      <StreamShell
+        key={`${activeFlareon?.id ?? "empty"}-${activeBurstId ?? "none"}`}
         activeFlareon={activeFlareon}
-        content={content}
-        onContentChange={setContent}
+        burstId={activeBurstId}
+        initialContent={streamContent}
+        burstStartedAt={burstStartedAt}
+        onOpenArchive={() => {}}
       />
     </div>
   );

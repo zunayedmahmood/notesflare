@@ -9,8 +9,10 @@ from models.schemas import (
     FlareonResponse, BurstResponse,
     SaveContentRequest, SaveContentResponse,
     AppStateResponse, AppStateUpdate,
+    SessionResumeResponse, AppendChunkRequest, AppendChunkResponse,
+    FlareonSwitchResponse,
 )
-from services import flareon_service, burst_service, storage_service
+from services import flareon_service, burst_service, storage_service, session_service, append_service
 
 router = APIRouter()
 
@@ -103,11 +105,76 @@ def open_flareon(flareon_id: int):
 @router.post("/save", response_model=SaveContentResponse)
 def save_content(body: SaveContentRequest):
     """
-    Save content for a burst. Called by the frontend's debounced autosave.
-    This endpoint must be fast — it is called every time the user pauses typing.
+    DEPRECATED in V1.1. Use POST /api/burst/append instead.
+    This endpoint remains to avoid breaking any V1 clients during transition.
+    It now appends the content as a single chunk rather than overwriting.
     """
-    entry_id = storage_service.save_content(body.burst_id, body.content)
-    return SaveContentResponse(success=True, burst_entry_id=entry_id)
+    seq = append_service.append_chunk(body.burst_id, body.content)
+    return SaveContentResponse(success=True, burst_entry_id=seq)
+
+
+# ─── V1.1 Session & Append Endpoints ──────────────────────────────────────────
+
+@router.get("/session/resume", response_model=SessionResumeResponse)
+def session_resume():
+    """
+    Called by the frontend Stream Page on startup.
+
+    Returns the full session state in one request:
+    - The last-opened Flareon
+    - The active burst ID (new or continued, per 30-min rule)
+    - The full reconstructed stream content of the active burst
+    - has_session=False if the user has never opened a Flareon
+
+    This replaces the V1 two-step startup (/api/state then /api/flareons/{id}).
+    """
+    result = session_service.resume_session()
+    return SessionResumeResponse(
+        has_session=result["has_session"],
+        flareon=FlareonResponse(**result["flareon"]) if result["flareon"] else None,
+        burst_id=result["burst_id"],
+        stream_content=result["stream_content"],
+        started_at=result["started_at"],
+    )
+
+
+@router.post("/burst/append", response_model=AppendChunkResponse)
+def append_to_burst(body: AppendChunkRequest):
+    """
+    Append a text delta to a burst's entry log.
+
+    Called by the frontend's debounced autosave. The payload is the NEW text
+    typed since the last append — NOT the full content.
+
+    Rejects empty text strings to avoid polluting the entry log.
+    This endpoint must be fast. It is called every ~1 second while typing.
+    """
+    if not body.text:
+        raise HTTPException(status_code=400, detail="text must not be empty.")
+
+    seq = append_service.append_chunk(body.burst_id, body.text)
+    return AppendChunkResponse(success=True, sequence_number=seq)
+
+
+@router.get("/session/switch/{flareon_id}", response_model=FlareonSwitchResponse)
+def switch_flareon(flareon_id: int):
+    """
+    Switch the active Flareon from the stream page sidebar.
+
+    Returns the same shape as session/resume but for the specified Flareon.
+    Updates app_state so the next resume returns this Flareon.
+    """
+    try:
+        result = session_service.switch_to_flareon(flareon_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+    return FlareonSwitchResponse(
+        flareon=FlareonResponse(**result["flareon"]),
+        burst_id=result["burst_id"],
+        stream_content=result["stream_content"],
+        started_at=result["started_at"],
+    )
 
 
 @router.post("/test/reset", include_in_schema=False)

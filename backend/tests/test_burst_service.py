@@ -27,6 +27,7 @@ def inject_test_db(test_db: sqlite3.Connection, monkeypatch):
     monkeypatch.setattr("services.burst_service.get_db", lambda: test_db)
     monkeypatch.setattr("services.flareon_service.get_db", lambda: test_db)
     monkeypatch.setattr("services.storage_service.get_db", lambda: test_db)
+    monkeypatch.setattr("services.append_service.get_db", lambda: test_db)
 
 
 @pytest.mark.unit
@@ -173,20 +174,21 @@ def test_exactly_at_30_minute_boundary_creates_new_burst(test_db):
 @pytest.mark.unit
 def test_save_extends_continuity_window(test_db):
     """
-    After a save, bursts.updated_at is refreshed. This means typing extends
+    After an append, bursts.updated_at is refreshed. This means typing extends
     the 30-minute window — the burst won't expire as long as the user is active.
     """
+    import services.append_service as append_service
     flareon = flareon_service.create_flareon("Writing")
     initial_time = datetime(2025, 1, 15, 10, 0, 0, tzinfo=timezone.utc)
 
     with freeze_time(initial_time):
         burst = burst_service.get_or_create_active_burst(flareon["id"])
-        storage_service.save_content(burst["id"], "First thought.")
+        append_service.append_chunk(burst["id"], "First thought.")
 
     # 25 minutes later, save again (user was actively typing)
     mid_time = initial_time + timedelta(minutes=25)
     with freeze_time(mid_time):
-        storage_service.save_content(burst["id"], "First thought. Second thought.")
+        append_service.append_chunk(burst["id"], "First thought. Second thought.")
 
     # Now 20 minutes after the LAST save (25 + 20 = 45 min from start, but only 20 from last save)
     late_time = mid_time + timedelta(minutes=20)
@@ -194,15 +196,15 @@ def test_save_extends_continuity_window(test_db):
         burst_again = burst_service.get_or_create_active_burst(flareon["id"])
 
     assert burst["id"] == burst_again["id"], (
-        f"[burst_service + storage_service] Saving content must refresh the continuity window.\n"
+        f"[burst_service + append_service] Appending chunk must refresh the continuity window.\n"
         f"  Timeline:\n"
         f"    t=0min   : First open + first save\n"
         f"    t=25min  : Second save (user actively typing)\n"
         f"    t=45min  : Third open (20 min after last save — should continue)\n"
         f"  Expected : Same burst id {burst['id']} returned at t=45min\n"
-        f"  Got      : New burst created — updated_at was not refreshed on save.\n"
-        f"  Fix      : storage_service.save_content must UPDATE bursts SET updated_at = ? "
-        f"after every save. Without this, the continuity window calculates from the burst's "
+        f"  Got      : New burst created — updated_at was not refreshed on append.\n"
+        f"  Fix      : append_service.append_chunk must UPDATE bursts SET updated_at = ? "
+        f"after every append. Without this, the continuity window calculates from the burst's "
         f"creation time, not from the last user activity."
     )
 

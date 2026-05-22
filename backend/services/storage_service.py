@@ -4,48 +4,9 @@ from database.db import get_db
 from datetime import datetime, timezone
 
 
-def save_content(burst_id: int, content: str) -> int:
-    """
-    Save or update content for a burst.
-    - If a burst_entry exists for this burst_id: UPDATE it
-    - If not: INSERT a new one
-
-    Returns the burst_entry id.
-    This is called by the debounced autosave from the frontend.
-    """
-    db = get_db()
-    now = datetime.now(timezone.utc).isoformat()
-
-    existing = db.execute(
-        "SELECT id FROM burst_entries WHERE burst_id = ?",
-        (burst_id,)
-    ).fetchone()
-
-    if existing:
-        db.execute(
-            "UPDATE burst_entries SET content = ?, updated_at = ? WHERE burst_id = ?",
-            (content, now, burst_id)
-        )
-        # Also update the parent burst's updated_at — this is what the continuity
-        # check reads. If we don't update bursts.updated_at, the 30-min window
-        # won't reset on save.
-        db.execute(
-            "UPDATE bursts SET updated_at = ? WHERE id = ?",
-            (now, burst_id)
-        )
-        db.commit()
-        return existing["id"]
-    else:
-        cursor = db.execute(
-            "INSERT INTO burst_entries (burst_id, content, created_at, updated_at) VALUES (?, ?, ?, ?)",
-            (burst_id, content, now, now)
-        )
-        db.execute(
-            "UPDATE bursts SET updated_at = ? WHERE id = ?",
-            (now, burst_id)
-        )
-        db.commit()
-        return cursor.lastrowid
+# save_content() was removed in V1.1.
+# Content persistence is now handled by append_service.append_chunk().
+# The /api/save endpoint is superseded by /api/burst/append.
 
 
 def get_app_state() -> dict:

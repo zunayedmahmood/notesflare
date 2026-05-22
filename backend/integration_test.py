@@ -109,6 +109,23 @@ def run_tests():
     test9_success = (code == 200 and len(flareons_list) >= 2 and flareons_list[0].get("id") == other_flareon_id)
     print_result("TEST 9: List Flareons Sorting (Recently Opened)", test9_success, f"Top Flareon: '{flareons_list[0].get('name')}'")
 
+    # TEST 10: Session Resume
+    code, body = make_request("/session/resume")
+    test10_success = (code == 200 and body.get("has_session") is True and body.get("flareon", {}).get("id") == other_flareon_id)
+    print_result("TEST 10: Session Resume Flow", test10_success, f"Resumed Flareon ID: {body.get('flareon', {}).get('id')}")
+
+    # TEST 11: Burst Append
+    res_burst_id = body.get("burst_id")
+    code, body = make_request("/burst/append", method="POST", data={"burst_id": res_burst_id, "text": "Appending V1.1 continuous data."})
+    # Note: because other_flareon was just opened/created, sequence_number should be 0
+    test11_success = (code == 200 and body.get("success") is True and body.get("sequence_number") == 0)
+    print_result("TEST 11: V1.1 Append Chunk", test11_success, f"Assigned seq: {body.get('sequence_number')}")
+
+    # TEST 12: Switch Flareon
+    code, body = make_request(f"/session/switch/{flareon_id}")
+    test12_success = (code == 200 and body.get("flareon", {}).get("id") == flareon_id)
+    print_result("TEST 12: Switch Flareon", test12_success, f"Switched to Flareon: '{body.get('flareon', {}).get('name')}'")
+
     print("\n" + "="*60)
     print("  All Integration Tests Complete.")
     print("="*60 + "\n")

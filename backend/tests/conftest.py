@@ -32,6 +32,7 @@ def test_db() -> sqlite3.Connection:
     Isolation: each test function gets a brand-new database. No state leaks between tests.
     """
     conn = sqlite3.connect(":memory:", check_same_thread=False)
+    conn.execute("PRAGMA foreign_keys = ON;")
     conn.row_factory = sqlite3.Row
 
     schema_path = Path(__file__).parent.parent / "database" / "schema.sql"
@@ -76,3 +77,38 @@ async def client(test_db: sqlite3.Connection) -> AsyncClient:
         yield c
 
     app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def create_burst(test_db):
+    """Factory fixture to create a burst for a given flareon_id."""
+    from services.burst_service import _create_burst
+
+    def _factory(flareon_id: int) -> dict:
+        return _create_burst(flareon_id)
+
+    return _factory
+
+
+@pytest.fixture
+def create_flareon(test_db):
+    """Factory fixture to create a flareon."""
+    from services.flareon_service import create_flareon as _create_flareon
+    return _create_flareon
+
+
+@pytest.fixture
+def test_client(test_db):
+    """Synchronous test client for route testing."""
+    from fastapi.testclient import TestClient
+    from main import app
+    from database.db import get_db
+    
+    def override_get_db():
+        return test_db
+        
+    app.dependency_overrides[get_db] = override_get_db
+    with TestClient(app) as c:
+        yield c
+    app.dependency_overrides.clear()
+

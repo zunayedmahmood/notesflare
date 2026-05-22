@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/64</span>
+                <span class='fraction'>0/92</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/64</span>
+                <span class='fraction'>0/92</span>
             </div>
         
             
@@ -127,7 +127,63 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -192,21 +248,30 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >// hooks/useSession.ts<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
+<span class="cstat-no" title="statement not covered" >"use client";</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >import { useState, useEffect } from "react";</span>
-<span class="cstat-no" title="statement not covered" >import { api, FlareonDetail, Flareon } from "@/lib/api";</span>
+<span class="cstat-no" title="statement not covered" >import { api, Flareon, SessionResumeResponse, FlareonSwitchResponse } from "@/lib/api";</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >interface SessionState {</span>
 <span class="cstat-no" title="statement not covered" >  flareons: Flareon[];</span>
-<span class="cstat-no" title="statement not covered" >  activeFlareon: FlareonDetail | null;</span>
+<span class="cstat-no" title="statement not covered" >  activeFlareon: Flareon | null;</span>
+<span class="cstat-no" title="statement not covered" >  activeBurstId: number | null;</span>
+<span class="cstat-no" title="statement not covered" >  streamContent: string;</span>
+<span class="cstat-no" title="statement not covered" >  burstStartedAt: string | null;</span>
 <span class="cstat-no" title="statement not covered" >  isLoading: boolean;</span>
+<span class="cstat-no" title="statement not covered" >  error: string | null;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >export function useSession() {</span>
 <span class="cstat-no" title="statement not covered" >  const [state, setState] = useState&lt;SessionState&gt;({</span>
 <span class="cstat-no" title="statement not covered" >    flareons: [],</span>
 <span class="cstat-no" title="statement not covered" >    activeFlareon: null,</span>
+<span class="cstat-no" title="statement not covered" >    activeBurstId: null,</span>
+<span class="cstat-no" title="statement not covered" >    streamContent: "",</span>
+<span class="cstat-no" title="statement not covered" >    burstStartedAt: null,</span>
 <span class="cstat-no" title="statement not covered" >    isLoading: true,</span>
+<span class="cstat-no" title="statement not covered" >    error: null,</span>
 <span class="cstat-no" title="statement not covered" >  });</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  useEffect(() =&gt; {</span>
@@ -215,43 +280,62 @@
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  async function initSession() {</span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      // Load all Flareons for sidebar</span>
-<span class="cstat-no" title="statement not covered" >      const flareons = await api.listFlareons();</span>
+<span class="cstat-no" title="statement not covered" >      // Single call replaces the V1 two-step startup</span>
+<span class="cstat-no" title="statement not covered" >      const [flareons, resume] = await Promise.all([</span>
+<span class="cstat-no" title="statement not covered" >        api.listFlareons(),</span>
+<span class="cstat-no" title="statement not covered" >        api.resumeSession(),</span>
+<span class="cstat-no" title="statement not covered" >      ]);</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      // Check if there's a previous session to restore</span>
-<span class="cstat-no" title="statement not covered" >      const appState = await api.getAppState();</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      let activeFlareon: FlareonDetail | null = null;</span>
-<span class="cstat-no" title="statement not covered" >      if (appState.last_opened_flareon_id !== null) {</span>
-<span class="cstat-no" title="statement not covered" >        try {</span>
-<span class="cstat-no" title="statement not covered" >          activeFlareon = await api.openFlareon(appState.last_opened_flareon_id);</span>
-<span class="cstat-no" title="statement not covered" >        } catch (openErr) {</span>
-<span class="cstat-no" title="statement not covered" >          console.error("Failed to restore last opened Flareon:", openErr);</span>
-<span class="cstat-no" title="statement not covered" >        }</span>
-<span class="cstat-no" title="statement not covered" >      }</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      setState({ flareons, activeFlareon, isLoading: false });</span>
+<span class="cstat-no" title="statement not covered" >      setState({</span>
+<span class="cstat-no" title="statement not covered" >        flareons,</span>
+<span class="cstat-no" title="statement not covered" >        activeFlareon: resume.flareon,</span>
+<span class="cstat-no" title="statement not covered" >        activeBurstId: resume.burst_id,</span>
+<span class="cstat-no" title="statement not covered" >        streamContent: resume.stream_content,</span>
+<span class="cstat-no" title="statement not covered" >        burstStartedAt: resume.started_at,</span>
+<span class="cstat-no" title="statement not covered" >        isLoading: false,</span>
+<span class="cstat-no" title="statement not covered" >        error: null,</span>
+<span class="cstat-no" title="statement not covered" >      });</span>
 <span class="cstat-no" title="statement not covered" >    } catch (err) {</span>
-<span class="cstat-no" title="statement not covered" >      console.error("Session init failed:", err);</span>
-<span class="cstat-no" title="statement not covered" >      setState((prev) =&gt; ({ ...prev, isLoading: false }));</span>
+<span class="cstat-no" title="statement not covered" >      console.error("[useSession] Init failed:", err);</span>
+<span class="cstat-no" title="statement not covered" >      setState((prev) =&gt; ({</span>
+<span class="cstat-no" title="statement not covered" >        ...prev,</span>
+<span class="cstat-no" title="statement not covered" >        isLoading: false,</span>
+<span class="cstat-no" title="statement not covered" >        error: "Could not connect to backend.",</span>
+<span class="cstat-no" title="statement not covered" >      }));</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  async function openFlareon(id: number) {</span>
-<span class="cstat-no" title="statement not covered" >    const detail = await api.openFlareon(id);</span>
-<span class="cstat-no" title="statement not covered" >    const flareons = await api.listFlareons(); // Refresh to update last_opened_at order</span>
-<span class="cstat-no" title="statement not covered" >    setState((prev) =&gt; ({ ...prev, flareons, activeFlareon: detail }));</span>
+<span class="cstat-no" title="statement not covered" >  async function switchFlareon(flareonId: number) {</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      const result: FlareonSwitchResponse = await api.switchFlareon(flareonId);</span>
+<span class="cstat-no" title="statement not covered" >      // Refresh flareon list to update ordering</span>
+<span class="cstat-no" title="statement not covered" >      const flareons = await api.listFlareons();</span>
+<span class="cstat-no" title="statement not covered" >      setState((prev) =&gt; ({</span>
+<span class="cstat-no" title="statement not covered" >        ...prev,</span>
+<span class="cstat-no" title="statement not covered" >        flareons,</span>
+<span class="cstat-no" title="statement not covered" >        activeFlareon: result.flareon,</span>
+<span class="cstat-no" title="statement not covered" >        activeBurstId: result.burst_id,</span>
+<span class="cstat-no" title="statement not covered" >        streamContent: result.stream_content,</span>
+<span class="cstat-no" title="statement not covered" >        burstStartedAt: result.started_at,</span>
+<span class="cstat-no" title="statement not covered" >      }));</span>
+<span class="cstat-no" title="statement not covered" >    } catch (err) {</span>
+<span class="cstat-no" title="statement not covered" >      console.error("[useSession] Switch failed:", err);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  async function createFlareon(name: string) {</span>
-<span class="cstat-no" title="statement not covered" >    const newFlareon = await api.createFlareon(name);</span>
-<span class="cstat-no" title="statement not covered" >    // Immediately open the newly created Flareon</span>
-<span class="cstat-no" title="statement not covered" >    await openFlareon(newFlareon.id);</span>
+<span class="cstat-no" title="statement not covered" >  async function createFlareon(name: string): Promise&lt;void&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    await api.createFlareon(name);</span>
+<span class="cstat-no" title="statement not covered" >    // After creation, switch to the new Flareon using the standard switch path</span>
+<span class="cstat-no" title="statement not covered" >    const flareons = await api.listFlareons();</span>
+<span class="cstat-no" title="statement not covered" >    const created = flareons.find((f) =&gt; f.name === name);</span>
+<span class="cstat-no" title="statement not covered" >    if (created) {</span>
+<span class="cstat-no" title="statement not covered" >      await switchFlareon(created.id);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  return {</span>
 <span class="cstat-no" title="statement not covered" >    ...state,</span>
-<span class="cstat-no" title="statement not covered" >    openFlareon,</span>
+<span class="cstat-no" title="statement not covered" >    switchFlareon,</span>
 <span class="cstat-no" title="statement not covered" >    createFlareon,</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
 <span class="cstat-no" title="statement not covered" >}</span>
@@ -262,7 +346,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-18T14:22:56.230Z
+                at 2026-05-22T09:10:45.601Z
             </div>
         <script src="../prettify.js"></script>
         <script>

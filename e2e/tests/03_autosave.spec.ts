@@ -7,13 +7,13 @@ test.describe('Autosave', () => {
     await page.locator('[data-testid="new-flareon-button"]').click();
     await page.locator('[data-testid="new-flareon-input"]').fill('Autosave Test');
     await page.keyboard.press('Enter');
-    await page.locator('[data-testid="writing-textarea"]').waitFor({ state: 'visible' });
+    await page.locator('[data-testid="stream-input"]').waitFor({ state: 'visible' });
   });
 
   test('content is persisted 1 second after typing stops', async ({ page, request }) => {
-    const textarea = page.locator('[data-testid="writing-textarea"]');
-    await textarea.click();
-    await textarea.type('Test content for autosave');
+    const streamInput = page.locator('[data-testid="stream-input"]');
+    await streamInput.click();
+    await streamInput.pressSequentially('Test content for autosave');
 
     // Wait 1.5 seconds for debounce + HTTP save to complete
     await page.waitForTimeout(1500);
@@ -46,8 +46,8 @@ test.describe('Autosave', () => {
   });
 
   test('no save indicator appears in the UI during typing', async ({ page }) => {
-    const textarea = page.locator('[data-testid="writing-textarea"]');
-    await textarea.type('Silent typing');
+    const streamInput = page.locator('[data-testid="stream-input"]');
+    await streamInput.pressSequentially('Silent typing');
 
     // Check for any save-related text in the entire DOM
     const saveText = page.locator('text=/saving|saved|sync/i');

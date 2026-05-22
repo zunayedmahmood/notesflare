@@ -8,23 +8,17 @@ CONTINUITY_WINDOW_MINUTES = 30
 
 def get_or_create_active_burst(flareon_id: int) -> dict:
     """
-    Core session logic. Implements the 30-minute continuity rule:
-    - If the latest burst for this Flareon was updated within 30 minutes: return it
-    - Otherwise: create a new burst and return it
-
-    Returns a dict with keys: id, flareon_id, started_at, content
+    Core session logic. Implements the 30-minute continuity rule.
+    Content is NOT returned here — use stream_service.reconstruct_burst separately.
     """
     db = get_db()
 
-    # Find the most recently updated burst for this Flareon
     latest_burst = db.execute(
         """
-        SELECT b.id, b.flareon_id, b.started_at, b.updated_at,
-               COALESCE(be.content, '') as content
-        FROM bursts b
-        LEFT JOIN burst_entries be ON be.burst_id = b.id
-        WHERE b.flareon_id = ?
-        ORDER BY b.updated_at DESC
+        SELECT id, flareon_id, started_at, updated_at
+        FROM bursts
+        WHERE flareon_id = ?
+        ORDER BY updated_at DESC
         LIMIT 1
         """,
         (flareon_id,)
@@ -40,18 +34,12 @@ def get_or_create_active_burst(flareon_id: int) -> dict:
             elapsed = timedelta(seconds=0)
 
         if elapsed < timedelta(minutes=CONTINUITY_WINDOW_MINUTES):
-            # Continue existing burst
             return dict(latest_burst)
 
-    # Create new burst
     return _create_burst(flareon_id)
 
 
 def _create_burst(flareon_id: int) -> dict:
-    """
-    Insert a new burst row and a corresponding empty burst_entry row.
-    Returns the new burst as a dict.
-    """
     db = get_db()
     now = datetime.now(timezone.utc).isoformat()
 
@@ -60,40 +48,52 @@ def _create_burst(flareon_id: int) -> dict:
         (flareon_id, now, now, now)
     )
     burst_id = burst_cursor.lastrowid
-
-    db.execute(
-        "INSERT INTO burst_entries (burst_id, content, created_at, updated_at) VALUES (?, '', ?, ?)",
-        (burst_id, now, now)
-    )
     db.commit()
+
+    # No burst_entry row is pre-created in V1.1.
+    # The first append_chunk call will create the first entry.
 
     return {
         "id": burst_id,
         "flareon_id": flareon_id,
         "started_at": now,
         "updated_at": now,
-        "content": ""
     }
 
 
 def get_all_bursts_for_flareon(flareon_id: int) -> list[dict]:
     """
     Return all bursts for a Flareon in chronological order (oldest first).
-    Each burst includes its content from burst_entries.
+    Content is reconstructed from burst_entries chunks via stream_service.
+
+    NOTE: This function now calls stream_service for each burst.
+    For archive view with many bursts this is acceptable in V1.1.
+    Future optimization: batch reconstruction query.
     """
+    # Import here to avoid circular import (burst_service ↔ stream_service)
+    from services import stream_service
+
     db = get_db()
     rows = db.execute(
         """
-        SELECT b.id, b.flareon_id, b.started_at,
-               COALESCE(be.content, '') as content
-        FROM bursts b
-        LEFT JOIN burst_entries be ON be.burst_id = b.id
-        WHERE b.flareon_id = ?
-        ORDER BY b.started_at ASC
+        SELECT id, flareon_id, started_at
+        FROM bursts
+        WHERE flareon_id = ?
+        ORDER BY started_at ASC
         """,
         (flareon_id,)
     ).fetchall()
-    return [dict(row) for row in rows]
+
+    result = []
+    for row in rows:
+        content = stream_service.reconstruct_burst(row["id"])
+        result.append({
+            "id": row["id"],
+            "flareon_id": row["flareon_id"],
+            "started_at": row["started_at"],
+            "content": content,
+        })
+    return result
 
 
 def _parse_iso(dt_string: str) -> datetime:

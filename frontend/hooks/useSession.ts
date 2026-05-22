@@ -1,19 +1,28 @@
 // hooks/useSession.ts
+"use client";
 
 import { useState, useEffect } from "react";
-import { api, FlareonDetail, Flareon } from "@/lib/api";
+import { api, Flareon, SessionResumeResponse, FlareonSwitchResponse } from "@/lib/api";
 
 interface SessionState {
   flareons: Flareon[];
-  activeFlareon: FlareonDetail | null;
+  activeFlareon: Flareon | null;
+  activeBurstId: number | null;
+  streamContent: string;
+  burstStartedAt: string | null;
   isLoading: boolean;
+  error: string | null;
 }
 
 export function useSession() {
   const [state, setState] = useState<SessionState>({
     flareons: [],
     activeFlareon: null,
+    activeBurstId: null,
+    streamContent: "",
+    burstStartedAt: null,
     isLoading: true,
+    error: null,
   });
 
   useEffect(() => {
@@ -22,43 +31,62 @@ export function useSession() {
 
   async function initSession() {
     try {
-      // Load all Flareons for sidebar
-      const flareons = await api.listFlareons();
+      // Single call replaces the V1 two-step startup
+      const [flareons, resume] = await Promise.all([
+        api.listFlareons(),
+        api.resumeSession(),
+      ]);
 
-      // Check if there's a previous session to restore
-      const appState = await api.getAppState();
-
-      let activeFlareon: FlareonDetail | null = null;
-      if (appState.last_opened_flareon_id !== null) {
-        try {
-          activeFlareon = await api.openFlareon(appState.last_opened_flareon_id);
-        } catch (openErr) {
-          console.error("Failed to restore last opened Flareon:", openErr);
-        }
-      }
-
-      setState({ flareons, activeFlareon, isLoading: false });
+      setState({
+        flareons,
+        activeFlareon: resume.flareon,
+        activeBurstId: resume.burst_id,
+        streamContent: resume.stream_content,
+        burstStartedAt: resume.started_at,
+        isLoading: false,
+        error: null,
+      });
     } catch (err) {
-      console.error("Session init failed:", err);
-      setState((prev) => ({ ...prev, isLoading: false }));
+      console.error("[useSession] Init failed:", err);
+      setState((prev) => ({
+        ...prev,
+        isLoading: false,
+        error: "Could not connect to backend.",
+      }));
     }
   }
 
-  async function openFlareon(id: number) {
-    const detail = await api.openFlareon(id);
-    const flareons = await api.listFlareons(); // Refresh to update last_opened_at order
-    setState((prev) => ({ ...prev, flareons, activeFlareon: detail }));
+  async function switchFlareon(flareonId: number) {
+    try {
+      const result: FlareonSwitchResponse = await api.switchFlareon(flareonId);
+      // Refresh flareon list to update ordering
+      const flareons = await api.listFlareons();
+      setState((prev) => ({
+        ...prev,
+        flareons,
+        activeFlareon: result.flareon,
+        activeBurstId: result.burst_id,
+        streamContent: result.stream_content,
+        burstStartedAt: result.started_at,
+      }));
+    } catch (err) {
+      console.error("[useSession] Switch failed:", err);
+    }
   }
 
-  async function createFlareon(name: string) {
-    const newFlareon = await api.createFlareon(name);
-    // Immediately open the newly created Flareon
-    await openFlareon(newFlareon.id);
+  async function createFlareon(name: string): Promise<void> {
+    await api.createFlareon(name);
+    // After creation, switch to the new Flareon using the standard switch path
+    const flareons = await api.listFlareons();
+    const created = flareons.find((f) => f.name === name);
+    if (created) {
+      await switchFlareon(created.id);
+    }
   }
 
   return {
     ...state,
-    openFlareon,
+    switchFlareon,
     createFlareon,
   };
 }
