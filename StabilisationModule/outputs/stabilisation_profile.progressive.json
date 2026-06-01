@@ -1,0 +1,945 @@
+{
+  "break_starters": [
+    "also",
+    "another",
+    "anyway",
+    "besides",
+    "but",
+    "finally",
+    "first",
+    "however",
+    "meanwhile",
+    "moreover",
+    "next",
+    "second",
+    "so",
+    "still",
+    "then",
+    "therefore",
+    "third",
+    "though",
+    "yet"
+  ],
+  "compound_terms": [
+    [
+      "ablation",
+      "study"
+    ],
+    [
+      "aggressive",
+      "mode"
+    ],
+    [
+      "annotation",
+      "quality"
+    ],
+    [
+      "api",
+      "contract"
+    ],
+    [
+      "approval",
+      "path"
+    ],
+    [
+      "autosave",
+      "safety"
+    ],
+    [
+      "backend",
+      "route"
+    ],
+    [
+      "benchmark",
+      "loop"
+    ],
+    [
+      "boundary",
+      "quality"
+    ],
+    [
+      "brand",
+      "voice"
+    ],
+    [
+      "budget",
+      "risk"
+    ],
+    [
+      "burst",
+      "indexing"
+    ],
+    [
+      "cache",
+      "invalidation"
+    ],
+    [
+      "calibration",
+      "step"
+    ],
+    [
+      "call",
+      "reminder"
+    ],
+    [
+      "chapter",
+      "notes"
+    ],
+    [
+      "citation",
+      "mapping"
+    ],
+    [
+      "client",
+      "feedback"
+    ],
+    [
+      "common",
+      "mistake"
+    ],
+    [
+      "control",
+      "group"
+    ],
+    [
+      "cpu",
+      "fallback"
+    ],
+    [
+      "daily",
+      "revision"
+    ],
+    [
+      "dataset",
+      "bias"
+    ],
+    [
+      "decision",
+      "log"
+    ],
+    [
+      "definition",
+      "recall"
+    ],
+    [
+      "demo",
+      "script"
+    ],
+    [
+      "diff",
+      "review"
+    ],
+    [
+      "embedding",
+      "cache"
+    ],
+    [
+      "error",
+      "source"
+    ],
+    [
+      "evaluation",
+      "metric"
+    ],
+    [
+      "evidence",
+      "chain"
+    ],
+    [
+      "exam",
+      "pattern"
+    ],
+    [
+      "example",
+      "problem"
+    ],
+    [
+      "expense",
+      "check"
+    ],
+    [
+      "false",
+      "positives"
+    ],
+    [
+      "family",
+      "errand"
+    ],
+    [
+      "feature",
+      "scope"
+    ],
+    [
+      "flareon",
+      "switch"
+    ],
+    [
+      "followup",
+      "email"
+    ],
+    [
+      "food",
+      "list"
+    ],
+    [
+      "formatting",
+      "latency"
+    ],
+    [
+      "formula",
+      "revision"
+    ],
+    [
+      "founder",
+      "story"
+    ],
+    [
+      "frontend",
+      "state"
+    ],
+    [
+      "golden",
+      "cases"
+    ],
+    [
+      "grammar",
+      "point"
+    ],
+    [
+      "handover",
+      "note"
+    ],
+    [
+      "heading",
+      "detection"
+    ],
+    [
+      "japanese",
+      "practice"
+    ],
+    [
+      "kanji",
+      "review"
+    ],
+    [
+      "landing",
+      "page"
+    ],
+    [
+      "launch",
+      "plan"
+    ],
+    [
+      "lecture",
+      "summary"
+    ],
+    [
+      "line",
+      "breaks"
+    ],
+    [
+      "list",
+      "detection"
+    ],
+    [
+      "listening",
+      "drill"
+    ],
+    [
+      "literature",
+      "review"
+    ],
+    [
+      "longer",
+      "paragraph"
+    ],
+    [
+      "market",
+      "angle"
+    ],
+    [
+      "meeting",
+      "agenda"
+    ],
+    [
+      "method",
+      "section"
+    ],
+    [
+      "mock",
+      "test"
+    ],
+    [
+      "model",
+      "comparison"
+    ],
+    [
+      "moderate",
+      "listing"
+    ],
+    [
+      "next",
+      "milestone"
+    ],
+    [
+      "observation",
+      "note"
+    ],
+    [
+      "offline",
+      "mode"
+    ],
+    [
+      "onnx",
+      "export"
+    ],
+    [
+      "paper",
+      "structure"
+    ],
+    [
+      "particle",
+      "confusion"
+    ],
+    [
+      "practice",
+      "sheet"
+    ],
+    [
+      "pricing",
+      "model"
+    ],
+    [
+      "privacy",
+      "layer"
+    ],
+    [
+      "protected",
+      "terms"
+    ],
+    [
+      "query",
+      "drift"
+    ],
+    [
+      "quick",
+      "recap"
+    ],
+    [
+      "quote",
+      "detection"
+    ],
+    [
+      "raw",
+      "note"
+    ],
+    [
+      "raw",
+      "reading"
+    ],
+    [
+      "reader",
+      "trust"
+    ],
+    [
+      "reading",
+      "habit"
+    ],
+    [
+      "result",
+      "table"
+    ],
+    [
+      "review",
+      "comments"
+    ],
+    [
+      "risk",
+      "list"
+    ],
+    [
+      "sample",
+      "id"
+    ],
+    [
+      "scope",
+      "change"
+    ],
+    [
+      "semantic",
+      "chunking"
+    ],
+    [
+      "semantic",
+      "search"
+    ],
+    [
+      "sensor",
+      "noise"
+    ],
+    [
+      "sentence",
+      "pattern"
+    ],
+    [
+      "session",
+      "restore"
+    ],
+    [
+      "shadowing",
+      "audio"
+    ],
+    [
+      "short",
+      "tokens"
+    ],
+    [
+      "sleep",
+      "routine"
+    ],
+    [
+      "speaking",
+      "practice"
+    ],
+    [
+      "sqlite",
+      "first"
+    ],
+    [
+      "startup",
+      "speed"
+    ],
+    [
+      "teacher",
+      "hint"
+    ],
+    [
+      "temperature",
+      "drift"
+    ],
+    [
+      "test",
+      "coverage"
+    ],
+    [
+      "timeline",
+      "issue"
+    ],
+    [
+      "travel",
+      "idea"
+    ],
+    [
+      "trial",
+      "repeat"
+    ],
+    [
+      "user",
+      "feedback"
+    ],
+    [
+      "user",
+      "profile"
+    ],
+    [
+      "vector",
+      "storage"
+    ],
+    [
+      "vocab",
+      "deck"
+    ],
+    [
+      "weekend",
+      "plan"
+    ],
+    [
+      "workout",
+      "plan"
+    ],
+    [
+      "note",
+      "fidelity"
+    ],
+    [
+      "mext",
+      "interview"
+    ],
+    [
+      "hci",
+      "mouse"
+    ],
+    [
+      "ola",
+      "report"
+    ],
+    [
+      "sop",
+      "draft"
+    ],
+    [
+      "daraz",
+      "scrape"
+    ],
+    [
+      "visa",
+      "timeline"
+    ],
+    [
+      "pandamart",
+      "branch"
+    ],
+    [
+      "tokutei",
+      "path"
+    ],
+    [
+      "coolprop",
+      "run"
+    ],
+    [
+      "aogga",
+      "mapping"
+    ],
+    [
+      "brayton",
+      "cycle"
+    ],
+    [
+      "beximco",
+      "boiler"
+    ],
+    [
+      "braibench",
+      "bn"
+    ],
+    [
+      "water",
+      "treatment"
+    ],
+    [
+      "mext",
+      "professor"
+    ],
+    [
+      "lab",
+      "pitch"
+    ],
+    [
+      "madestic",
+      "website"
+    ],
+    [
+      "deshio",
+      "order"
+    ],
+    [
+      "errum",
+      "inventory"
+    ],
+    [
+      "lazychat",
+      "sync"
+    ],
+    [
+      "smartself",
+      "qr"
+    ],
+    [
+      "compressor",
+      "note"
+    ],
+    [
+      "sco2",
+      "validation"
+    ]
+  ],
+  "continuous_list_headers": [
+    "need",
+    "todo",
+    "tasks",
+    "ideas",
+    "questions",
+    "steps",
+    "features",
+    "fix",
+    "add",
+    "check",
+    "review",
+    "compare",
+    "include",
+    "remember",
+    "focus"
+  ],
+  "continuous_list_item_phrases": [
+    "ablation study",
+    "accept reject",
+    "aggressive mode",
+    "annotation quality",
+    "api contract",
+    "approval path",
+    "autosave safety",
+    "backend route",
+    "benchmark loop",
+    "boundary quality",
+    "brand voice",
+    "budget risk",
+    "burst history",
+    "burst indexing",
+    "cache invalidation",
+    "calibration step",
+    "call reminder",
+    "chapter notes",
+    "chunking",
+    "citation mapping",
+    "class notes",
+    "client feedback",
+    "common mistake",
+    "control group",
+    "cpu fallback",
+    "daily revision",
+    "dataset bias",
+    "decision log",
+    "definition recall",
+    "demo script",
+    "diff review",
+    "domain words",
+    "embedding cache",
+    "error source",
+    "evaluation metric",
+    "evidence chain",
+    "exam pattern",
+    "example problem",
+    "expense check",
+    "false positives",
+    "family errand",
+    "feature scope",
+    "flareon switch",
+    "followup email",
+    "food list",
+    "formatting latency",
+    "formula revision",
+    "founder story",
+    "frontend state",
+    "golden cases",
+    "grammar point",
+    "handover note",
+    "heading detection",
+    "japanese practice",
+    "kanji review",
+    "landing page",
+    "launch plan",
+    "lecture summary",
+    "line breaks",
+    "list detection",
+    "listening drill",
+    "literature review",
+    "local storage",
+    "longer paragraph",
+    "market angle",
+    "meeting agenda",
+    "meeting notes",
+    "memory pressure",
+    "method section",
+    "mock test",
+    "model comparison",
+    "moderate listing",
+    "next milestone",
+    "observation note",
+    "offline mode",
+    "onnx export",
+    "paper structure",
+    "particle confusion",
+    "practice sheet",
+    "pricing model",
+    "privacy layer",
+    "protected terms",
+    "query drift",
+    "quick recap",
+    "quote detection",
+    "raw note fidelity",
+    "raw reading",
+    "reader trust",
+    "reading habit",
+    "research notes",
+    "result table",
+    "retrieval latency",
+    "review comments",
+    "risk list",
+    "sample id",
+    "scope change",
+    "semantic chunking",
+    "semantic search",
+    "sensor noise",
+    "sentence pattern",
+    "session restore",
+    "shadowing audio",
+    "short tokens",
+    "sleep routine",
+    "speaking practice",
+    "sqlite blobs",
+    "sqlite first",
+    "startup speed",
+    "teacher hint",
+    "temperature drift",
+    "test coverage",
+    "timeline issue",
+    "travel idea",
+    "trial repeat",
+    "user feedback",
+    "user profile",
+    "user vocabulary",
+    "vector storage",
+    "vocab deck",
+    "weekend plan",
+    "workout plan",
+    "np",
+    "asap",
+    "rn",
+    "api",
+    "db",
+    "ui",
+    "ux",
+    "mvp",
+    "eta",
+    "jwt",
+    "sku",
+    "pos",
+    "cpu",
+    "gpu",
+    "n3",
+    "n4",
+    "n5",
+    "qa",
+    "mext interview",
+    "hci mouse",
+    "jlpt",
+    "ola report",
+    "sop draft",
+    "daraz scrape",
+    "visa timeline",
+    "pandamart branch",
+    "tokutei path",
+    "unilever",
+    "coolprop run",
+    "aogga mapping",
+    "brayton cycle",
+    "beximco boiler",
+    "braibench bn",
+    "water treatment",
+    "mext professor",
+    "lab pitch",
+    "madestic website",
+    "deshio order",
+    "errum inventory",
+    "lazychat sync",
+    "smartself qr",
+    "compressor note",
+    "sco2 validation"
+  ],
+  "formatting_preferences": {
+    "heading_aggressiveness": "conservative",
+    "line_break_aggressiveness": "aggressive",
+    "listing_aggressiveness": "moderate",
+    "paragraph_density": "balanced"
+  },
+  "learned_from_accepts": {
+    "accepted_operations": {
+      "insert_line_break": 1850
+    },
+    "break_starters": {},
+    "continuous_list_headers": {
+      "add": 200,
+      "check": 200,
+      "compare": 200,
+      "fix": 150,
+      "focus": 150,
+      "need": 200,
+      "remember": 200,
+      "review": 200,
+      "todo": 200
+    },
+    "continuous_list_item_phrases": {
+      "aogga mapping": 130,
+      "api": 126,
+      "api contract": 124,
+      "asap": 126,
+      "backend route": 102,
+      "beximco boiler": 110,
+      "braibench bn": 120,
+      "brayton cycle": 130,
+      "chunking": 122,
+      "client feedback": 128,
+      "compressor note": 130,
+      "coolprop run": 110,
+      "cpu": 128,
+      "daraz scrape": 130,
+      "db": 108,
+      "decision log": 102,
+      "deshio order": 130,
+      "embedding cache": 100,
+      "errum inventory": 100,
+      "eta": 112,
+      "followup email": 128,
+      "frontend state": 100,
+      "golden cases": 76,
+      "gpu": 110,
+      "grammar point": 126,
+      "hci mouse": 130,
+      "jlpt": 130,
+      "jwt": 116,
+      "kanji review": 98,
+      "lab pitch": 130,
+      "lazychat sync": 120,
+      "madestic website": 110,
+      "meeting agenda": 126,
+      "mext interview": 110,
+      "mext professor": 120,
+      "mock test": 74,
+      "mvp": 128,
+      "n3": 242,
+      "n4": 106,
+      "n5": 126,
+      "np": 112,
+      "ola report": 110,
+      "pandamart branch": 100,
+      "pos": 112,
+      "qa": 128,
+      "query drift": 98,
+      "raw note fidelity": 124,
+      "risk list": 100,
+      "rn": 116,
+      "sco2 validation": 100,
+      "semantic search": 122,
+      "sentence pattern": 100,
+      "shadowing audio": 98,
+      "sku": 246,
+      "smartself qr": 130,
+      "sop draft": 100,
+      "test coverage": 102,
+      "tokutei path": 130,
+      "ui": 130,
+      "unilever": 120,
+      "ux": 108,
+      "visa timeline": 120,
+      "water treatment": 100
+    },
+    "protected_terms": {},
+    "short_tokens": {
+      "api": 250,
+      "asap": 132,
+      "bn": 130,
+      "cpu": 134,
+      "db": 120,
+      "eta": 122,
+      "gpu": 122,
+      "jlpt": 140,
+      "jwt": 126,
+      "mext": 250,
+      "mvp": 132,
+      "n3": 258,
+      "n4": 118,
+      "n5": 130,
+      "np": 122,
+      "pos": 124,
+      "qa": 134,
+      "qr": 130,
+      "rn": 126,
+      "sku": 262,
+      "sop": 110,
+      "todo": 200,
+      "ui": 136,
+      "ux": 120,
+      "visa": 130
+    }
+  },
+  "list_header_words": [
+    "need",
+    "needs",
+    "todo",
+    "todos",
+    "tasks",
+    "ideas",
+    "points",
+    "questions",
+    "issues",
+    "problems",
+    "steps",
+    "features",
+    "include",
+    "includes",
+    "requirements",
+    "check",
+    "checks",
+    "remember",
+    "focus",
+    "plan",
+    "plans",
+    "try",
+    "tries",
+    "fix",
+    "fixes",
+    "add",
+    "adds",
+    "compare",
+    "review"
+  ],
+  "profile_name": "notesflare-default-balanced",
+  "protected_terms": [
+    "NotesFlare",
+    "MetaMorph",
+    "MiniLM",
+    "Burst",
+    "Flareon",
+    "spaCy",
+    "ONNX",
+    "FastAPI",
+    "SQLite",
+    "Next.js",
+    "React",
+    "Electron"
+  ],
+  "short_tokens": [
+    "np",
+    "rn",
+    "asap",
+    "btw",
+    "tbh",
+    "imo",
+    "idk",
+    "todo",
+    "ETA",
+    "MVP",
+    "API",
+    "DB",
+    "UI",
+    "UX",
+    "NLP",
+    "LLM",
+    "OCR",
+    "RAG",
+    "CPU",
+    "GPU",
+    "qa",
+    "jwt",
+    "sku",
+    "pos",
+    "n3",
+    "n4",
+    "n5",
+    "mext",
+    "jlpt",
+    "sop",
+    "visa",
+    "bn",
+    "qr"
+  ],
+  "soft_break_starters": [
+    "maybe",
+    "perhaps",
+    "probably",
+    "possibly"
+  ],
+  "updated_at": "2026-06-01T21:34:04.453576+00:00",
+  "version": 1
+}

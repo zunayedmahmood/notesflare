@@ -1,15 +1,19 @@
 {
-  "started_at": "2026-06-01T18:32:59.051974+00:00",
-  "completed_at": "2026-06-01T18:35:30.379634+00:00",
+  "started_at": "2026-06-01T21:14:29.542633+00:00",
+  "completed_at": "2026-06-01T21:21:17.085491+00:00",
   "input": "/home/zunayed-mahmood/storage/Projects/NotesFlare/StabilisationModule/examples_1000.json",
   "output": "/home/zunayed-mahmood/storage/Projects/NotesFlare/StabilisationModule/outputs/formatted_results.json",
   "benchmark_database": "/home/zunayed-mahmood/storage/Projects/NotesFlare/StabilisationModule/outputs/stabilisation_benchmark.db",
   "mode": "database_pipeline",
   "examples_processed": 1000,
-  "examples_with_diffs": 916,
-  "examples_without_diffs": 84,
-  "total_diffs": 1192,
-  "average_diffs_per_example": 1.192,
+  "examples_with_diffs": 843,
+  "examples_without_diffs": 157,
+  "total_diffs": 1074,
+  "average_diffs_per_example": 1.074,
+  "decision_counts": {
+    "accepted": 1074,
+    "rejected": 0
+  },
   "genre_counts": {
     "architecture_notes": 100,
     "brainstorming": 100,
@@ -23,23 +27,103 @@
     "research_notes": 100
   },
   "diffs_by_genre": {
-    "architecture_notes": 121,
-    "brainstorming": 130,
-    "class_notes": 122,
-    "developer_notes": 115,
-    "lab_notes": 123,
-    "language_learning": 104,
-    "meeting_notes": 117,
-    "personal_thinking": 125,
-    "reading_notes": 119,
-    "research_notes": 116
+    "architecture_notes": 113,
+    "brainstorming": 121,
+    "class_notes": 110,
+    "developer_notes": 103,
+    "lab_notes": 107,
+    "language_learning": 101,
+    "meeting_notes": 105,
+    "personal_thinking": 111,
+    "reading_notes": 103,
+    "research_notes": 100
   },
   "operation_counts": {
-    "format_as_heading": 299,
-    "insert_line_break": 659,
-    "insert_paragraph_break": 234
+    "format_as_heading": 93,
+    "format_as_list_item": 234,
+    "format_as_quote": 34,
+    "insert_line_break": 692,
+    "insert_paragraph_break": 21
+  },
+  "diff_count_distribution": {
+    "0": 157,
+    "1": 695,
+    "2": 69,
+    "3": 75,
+    "4": 4
+  },
+  "tag_counts": {
+    "list_seed": 79,
+    "multi_line": 307,
+    "option_marker": 103,
+    "punctuated": 94,
+    "topic_marker": 84,
+    "transition_marker": 368
+  },
+  "diffs_by_tag": {
+    "list_seed": 238,
+    "multi_line": 447,
+    "option_marker": 109,
+    "punctuated": 96,
+    "topic_marker": 88,
+    "transition_marker": 387
+  },
+  "changed_examples_by_tag": {
+    "list_seed": 79,
+    "multi_line": 216,
+    "option_marker": 103,
+    "punctuated": 94,
+    "topic_marker": 84,
+    "transition_marker": 368
+  },
+  "operation_counts_by_tag": {
+    "list_seed": {
+      "format_as_list_item": 234,
+      "format_as_quote": 4
+    },
+    "multi_line": {
+      "format_as_heading": 93,
+      "format_as_list_item": 234,
+      "format_as_quote": 34,
+      "insert_line_break": 65,
+      "insert_paragraph_break": 21
+    },
+    "option_marker": {
+      "format_as_quote": 6,
+      "insert_line_break": 103
+    },
+    "punctuated": {
+      "format_as_quote": 2,
+      "insert_line_break": 94
+    },
+    "topic_marker": {
+      "format_as_quote": 4,
+      "insert_line_break": 84
+    },
+    "transition_marker": {
+      "format_as_heading": 4,
+      "format_as_list_item": 3,
+      "format_as_quote": 13,
+      "insert_line_break": 367
+    }
   },
   "embedding_status_counts": {
     "ok": 1000
-  }
+  },
+  "stabilisation_profile": "default",
+  "profile_snapshots": [],
+  "usage_summary": {
+    "total_usage_events": 1074,
+    "learned_events": 1074,
+    "by_decision": {
+      "accepted": {
+        "format_as_heading": 93,
+        "format_as_list_item": 234,
+        "format_as_quote": 34,
+        "insert_line_break": 692,
+        "insert_paragraph_break": 21
+      }
+    }
+  },
+  "study_old_data_summary": null
 }

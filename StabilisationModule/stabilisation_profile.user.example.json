@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "profile_name": "example-user-profile",
+  "formatting_preferences": {
+    "paragraph_density": "longer",
+    "line_break_aggressiveness": "balanced",
+    "listing_aggressiveness": "moderate",
+    "heading_aggressiveness": "conservative"
+  },
+  "short_tokens": ["np", "asap", "rn", "mext", "mvp"],
+  "protected_terms": ["NotesFlare", "MetaMorph", "MEXT", "Naramoto"],
+  "continuous_list_item_phrases": [
+    "miz1 pathway",
+    "eca1 calcium pump",
+    "pin polarity",
+    "root hydrotropism",
+    "professor meeting",
+    "application timeline"
+  ],
+  "compound_terms": [
+    ["miz1", "pathway"],
+    ["eca1", "calcium"],
+    ["pin", "polarity"],
+    ["root", "hydrotropism"]
+  ]
+}

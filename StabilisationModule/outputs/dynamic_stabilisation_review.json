@@ -1,0 +1,42 @@
+{
+  "input_review": {
+    "user_embedding_run": {
+      "examples_processed": 1000,
+      "examples_with_diffs": 804,
+      "total_diffs": 1066,
+      "embedding_status": "ok for 1000 examples",
+      "operation_counts": {
+        "format_as_heading": 93,
+        "format_as_list_item": 234,
+        "format_as_quote": 34,
+        "insert_line_break": 635,
+        "insert_paragraph_break": 70
+      },
+      "diagnosis": "Recent optimisation worked: heading noise and paragraph-break noise reduced, list and quote operations now appear. Remaining weakness was continuous one-line list streams."
+    }
+  },
+  "implemented_changes": [
+    "Added dynamic stabilisation profile service loaded from storage/stabilisation_profile.json, env override, or module default.",
+    "Added continuous one-line list extraction for raw streams such as 'need raw note fidelity query drift and chunking'.",
+    "Added short-token preservation for np/asap/rn/API-style vocabulary.",
+    "Added preference controls for paragraph density, line-break aggressiveness, listing aggressiveness, and heading aggressiveness.",
+    "Generated 1000 additional continuous-stream benchmark examples.",
+    "Added benchmark CLI profile support and package scripts for continuous benchmark runs."
+  ],
+  "verification": {
+    "continuous_stream_no_embeddings": {
+      "examples_processed": 1000,
+      "examples_with_diffs": 1000,
+      "total_diffs": 1000,
+      "operation_counts": {
+        "insert_line_break": 1000
+      }
+    },
+    "original_dataset_no_embeddings_after_patch": {
+      "examples_processed": 1000,
+      "examples_with_diffs": 815,
+      "total_diffs": 1047
+    },
+    "direct_formatter_checks": "passed"
+  }
+}

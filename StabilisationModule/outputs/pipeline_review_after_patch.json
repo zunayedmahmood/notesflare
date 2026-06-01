@@ -1,0 +1,44 @@
+{
+  "user_run_before_patch": {
+    "examples_processed": 1000,
+    "examples_with_diffs": 916,
+    "total_diffs": 1192,
+    "operation_counts": {
+      "format_as_heading": 299,
+      "insert_line_break": 659,
+      "insert_paragraph_break": 234
+    },
+    "embedding_status_counts": {
+      "ok": 1000
+    }
+  },
+  "after_patch_sandbox_run": {
+    "examples_processed": 1000,
+    "examples_with_diffs": 815,
+    "total_diffs": 1086,
+    "operation_counts": {
+      "format_as_heading": 107,
+      "format_as_list_item": 234,
+      "format_as_quote": 34,
+      "insert_line_break": 635,
+      "insert_paragraph_break": 76
+    },
+    "embedding_status_counts": {
+      "skipped": 1000
+    },
+    "note": "Sandbox run used --no-embeddings because sentence-transformers is not installed in this environment."
+  },
+  "diagnosis": [
+    "Before patch, list_seed examples were often formatted as headings or paragraph breaks instead of list items.",
+    "Before patch, heading formatting changed user casing via title-case, violating token preservation.",
+    "Before patch, quote-like lines were not represented as quote blocks.",
+    "Before patch, embedding-driven paragraph breaks were too eager around short fragments."
+  ],
+  "patch_focus": [
+    "Context-aware implicit list detection after colon headers.",
+    "Heading marker added without title-casing or word changes.",
+    "Quote block detection for raw-note quote patterns.",
+    "More conservative embedding paragraph break gate.",
+    "Compound term guard for technical/research phrases."
+  ]
+}

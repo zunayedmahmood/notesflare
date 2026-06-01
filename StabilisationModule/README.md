@@ -86,3 +86,146 @@ Each item in `formatted_results.json` looks like:
 ## Important
 
 This is not an import/export feature and not a user-facing NotesFlare feature. It is a developer evaluation tool for measuring formatter behavior against a broad raw-note dataset. The default database mode uses an isolated benchmark DB and does not touch `storage/notesflare.db`.
+
+## Dynamic stabilisation profile
+
+The formatter now reads a hidden local profile before generating structural diffs.
+Load order:
+
+1. `NOTESFLARE_STABILISATION_PROFILE=/path/to/profile.json`
+2. `storage/stabilisation_profile.json`
+3. `StabilisationModule/stabilisation_profile.default.json`
+4. built-in defaults
+
+The profile can define:
+
+- `short_tokens`: raw user shorthand such as `np`, `asap`, `rn`, `API`, `MVP`
+- `protected_terms`: product/domain words that should be treated as sacred tokens
+- `continuous_list_item_phrases`: phrases used to recognize compact one-line list streams
+- `compound_terms`: word pairs that should not be split internally
+- `formatting_preferences.paragraph_density`: `longer`, `balanced`, `shorter`
+- `formatting_preferences.line_break_aggressiveness`: `conservative`, `balanced`, `aggressive`
+- `formatting_preferences.listing_aggressiveness`: `conservative`, `moderate`, `aggressive`
+
+Example:
+
+```bash
+python StabilisationModule/run_stabilisation_benchmark.py \
+  --input StabilisationModule/examples_1000_continuous_stream.json \
+  --profile StabilisationModule/stabilisation_profile.user.example.json
+```
+
+## Continuous-stream benchmark
+
+A second benchmark dataset now exists:
+
+```text
+StabilisationModule/examples_1000_continuous_stream.json
+```
+
+It focuses on raw one-line note streams that should become structure, for example:
+
+```text
+need raw note fidelity query drift and chunking
+```
+
+Expected structural output:
+
+```text
+need:
+- raw note fidelity
+- query drift
+- chunking
+```
+
+Run it with:
+
+```bash
+npm run stabilisation:continuous
+```
+
+or without embeddings:
+
+```bash
+npm run stabilisation:continuous:no-embeddings
+```
+
+## Progressive accepted-only usage learning
+
+This module now supports a generic "study old data for better diff suggestions" loop.
+
+The important rule is:
+
+> Rejected diffs are tracked for audit, but they are never used to update the stabilisation profile.
+
+This prevents accidental rejection from poisoning future formatting behaviour.
+
+### New progressive dataset
+
+```text
+StabilisationModule/examples_1000_progressive_usage.json
+```
+
+The dataset contains 1,000 progressive one-stream cases with short tokens, custom user/domain keywords, and simulated accept/reject decisions. It is designed to show whether accepted diffs gradually improve the hidden profile.
+
+### Run progressive benchmark
+
+```bash
+./StabilisationModule/START_HERE.sh progressive
+```
+
+Windows:
+
+```bat
+StabilisationModule\START_HERE.bat progressive
+```
+
+Or with npm:
+
+```bash
+npm run stabilisation:progressive
+```
+
+Without embeddings:
+
+```bash
+npm run stabilisation:progressive:no-embeddings
+```
+
+### Run all benchmark sets
+
+```bash
+./StabilisationModule/START_HERE.sh all
+```
+
+This runs:
+
+1. `examples_1000.json`
+2. `examples_1000_continuous_stream.json`
+3. `examples_1000_progressive_usage.json`
+
+### Progressive outputs
+
+```text
+StabilisationModule/outputs/formatted_results_progressive_usage.json
+StabilisationModule/outputs/benchmark_summary_progressive_usage.json
+StabilisationModule/outputs/stabilisation_benchmark_progressive_usage.db
+StabilisationModule/outputs/stabilisation_profile.progressive.json
+```
+
+### Usage-tracking tables
+
+The existing diff pipeline now records accept/reject usage events in the benchmark/app DB:
+
+```text
+stabilisation_usage_events
+stabilisation_profile_events
+```
+
+Accepted diffs update the file-backed stabilisation profile through:
+
+```text
+backend/services/formatting/usage_learning_service.py
+```
+
+Rejected diffs call the same tracker, but the tracker does not learn from them.

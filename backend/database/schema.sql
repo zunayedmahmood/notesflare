@@ -89,3 +89,35 @@ CREATE TABLE IF NOT EXISTS line_history (
     detail          TEXT,                      -- JSON blob with operation context
     created_at      TEXT    NOT NULL DEFAULT (datetime('now'))
 );
+
+-- ─── Stabilisation Usage Learning ────────────────────────────────────────────
+-- Developer/user-usage evidence for improving future structural diffs.
+-- Rejections are recorded for audit only. Profile learning uses ACCEPTED diffs only.
+
+CREATE TABLE IF NOT EXISTS stabilisation_usage_events (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_id        TEXT NOT NULL UNIQUE,
+    diff_id         TEXT,
+    burst_id        INTEGER,
+    line_id         TEXT,
+    operation       TEXT NOT NULL,
+    decision        TEXT NOT NULL CHECK (decision IN ('accepted', 'rejected')),
+    learned         INTEGER NOT NULL DEFAULT 0,
+    raw_before      TEXT NOT NULL DEFAULT '',
+    formatted_after TEXT NOT NULL DEFAULT '',
+    features_json   TEXT NOT NULL DEFAULT '{}',
+    profile_path    TEXT,
+    created_at      TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_stabilisation_usage_decision
+    ON stabilisation_usage_events(decision, operation, created_at);
+
+CREATE TABLE IF NOT EXISTS stabilisation_profile_events (
+    id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    profile_event_id TEXT NOT NULL UNIQUE,
+    usage_event_id   TEXT NOT NULL,
+    learned_json     TEXT NOT NULL DEFAULT '{}',
+    profile_path     TEXT,
+    created_at       TEXT NOT NULL DEFAULT (datetime('now'))
+);

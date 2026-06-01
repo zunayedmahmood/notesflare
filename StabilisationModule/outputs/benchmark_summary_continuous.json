@@ -1,0 +1,124 @@
+{
+  "started_at": "2026-06-01T21:21:21.763575+00:00",
+  "completed_at": "2026-06-01T21:28:15.758878+00:00",
+  "input": "StabilisationModule/examples_1000_continuous_stream.json",
+  "output": "StabilisationModule/outputs/formatted_results_continuous.json",
+  "benchmark_database": "StabilisationModule/outputs/stabilisation_benchmark_continuous.db",
+  "mode": "database_pipeline",
+  "examples_processed": 1000,
+  "examples_with_diffs": 1000,
+  "examples_without_diffs": 0,
+  "total_diffs": 1000,
+  "average_diffs_per_example": 1.0,
+  "decision_counts": {
+    "accepted": 1000,
+    "rejected": 0
+  },
+  "genre_counts": {
+    "architecture_stream": 100,
+    "brainstorm_stream": 100,
+    "class_stream": 100,
+    "developer_stream": 100,
+    "lab_stream": 100,
+    "language_stream": 100,
+    "meeting_stream": 100,
+    "personal_stream": 100,
+    "product_stream": 100,
+    "research_stream": 100
+  },
+  "diffs_by_genre": {
+    "architecture_stream": 100,
+    "brainstorm_stream": 100,
+    "class_stream": 100,
+    "developer_stream": 100,
+    "lab_stream": 100,
+    "language_stream": 100,
+    "meeting_stream": 100,
+    "personal_stream": 100,
+    "product_stream": 100,
+    "research_stream": 100
+  },
+  "operation_counts": {
+    "insert_line_break": 1000
+  },
+  "diff_count_distribution": {
+    "1": 1000
+  },
+  "tag_counts": {
+    "compact": 250,
+    "connector_and": 125,
+    "connector_plus": 125,
+    "continuous_list": 1000,
+    "continuous_stream": 1000,
+    "multi_short_token": 125,
+    "option_tail": 125,
+    "plain_space": 125,
+    "short_token": 250
+  },
+  "diffs_by_tag": {
+    "compact": 250,
+    "connector_and": 125,
+    "connector_plus": 125,
+    "continuous_list": 1000,
+    "continuous_stream": 1000,
+    "multi_short_token": 125,
+    "option_tail": 125,
+    "plain_space": 125,
+    "short_token": 250
+  },
+  "changed_examples_by_tag": {
+    "compact": 250,
+    "connector_and": 125,
+    "connector_plus": 125,
+    "continuous_list": 1000,
+    "continuous_stream": 1000,
+    "multi_short_token": 125,
+    "option_tail": 125,
+    "plain_space": 125,
+    "short_token": 250
+  },
+  "operation_counts_by_tag": {
+    "compact": {
+      "insert_line_break": 250
+    },
+    "connector_and": {
+      "insert_line_break": 125
+    },
+    "connector_plus": {
+      "insert_line_break": 125
+    },
+    "continuous_list": {
+      "insert_line_break": 1000
+    },
+    "continuous_stream": {
+      "insert_line_break": 1000
+    },
+    "multi_short_token": {
+      "insert_line_break": 125
+    },
+    "option_tail": {
+      "insert_line_break": 125
+    },
+    "plain_space": {
+      "insert_line_break": 125
+    },
+    "short_token": {
+      "insert_line_break": 250
+    }
+  },
+  "embedding_status_counts": {
+    "ok": 1000
+  },
+  "stabilisation_profile": "default",
+  "profile_snapshots": [],
+  "usage_summary": {
+    "total_usage_events": 1000,
+    "learned_events": 1000,
+    "by_decision": {
+      "accepted": {
+        "insert_line_break": 1000
+      }
+    }
+  },
+  "study_old_data_summary": null
+}

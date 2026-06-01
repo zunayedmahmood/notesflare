@@ -64,7 +64,7 @@ def test_formatter_operations():
     signals = [
         {
             "line_index": 0,
-            "text": "getting started",
+            "text": "getting started thoughts",
             "is_sentence_start": True,
             "is_sentence_end": True,
             "is_list_item_candidate": False,
@@ -90,7 +90,7 @@ def test_formatter_operations():
     ops = formatter_service.generate_operations(signals)
     assert len(ops) == 2
     assert ops[0]["operation"] == "format_as_heading"
-    assert ops[0]["formatted_after"] == "Getting Started"
+    assert ops[0]["formatted_after"] == "## getting started thoughts"
     assert ops[1]["operation"] == "format_as_list_item"
     assert ops[1]["formatted_after"] == "- step one"
 
@@ -100,7 +100,7 @@ def test_stable_lineage_and_diffs(test_db):
     flareon = flareon_service.create_flareon("Lineage Test")
     burst = burst_service.get_or_create_active_burst(flareon["id"])
     
-    raw_lines = ["getting started", "* step one"]
+    raw_lines = ["getting started thoughts", "* step one"]
     # Stage 3: Stable line IDs
     line_records = lineage_service.get_or_create_lines(burst["id"], raw_lines)
     assert len(line_records) == 2
@@ -112,8 +112,8 @@ def test_stable_lineage_and_diffs(test_db):
         {
             "line_index": 0,
             "operation": "format_as_heading",
-            "raw_before": "getting started",
-            "formatted_after": "Getting Started",
+            "raw_before": "getting started thoughts",
+            "formatted_after": "## getting started thoughts",
         }
     ]
     diffs = diff_service.store_diffs(burst["id"], line_records, ops)
@@ -126,10 +126,10 @@ def test_stable_lineage_and_diffs(test_db):
     assert accept_res["status"] == "accepted"
     
     # Verify line status changed
-    lines_dict = diff_service.get_formatted_burst(burst["id"], "getting started\n* step one")
+    lines_dict = diff_service.get_formatted_burst(burst["id"], "getting started thoughts\n* step one")
     assert lines_dict["lines"][0]["status"] == "accepted"
-    assert lines_dict["lines"][0]["formatted_line"] == "Getting Started"
-    assert lines_dict["formatted_text"] == "Getting Started\n* step one"
+    assert lines_dict["lines"][0]["formatted_line"] == "## getting started thoughts"
+    assert lines_dict["formatted_text"] == "## getting started thoughts\n* step one"
 
 @pytest.mark.unit
 def test_formatter_splits_unpunctuated_semantic_clause():
@@ -182,3 +182,73 @@ def test_formatter_splits_long_sentence_dump():
     assert ops[0]["operation"] == "insert_line_break"
     assert "\n" in ops[0]["formatted_after"]
     assert "The app never asks them to start fresh." in ops[0]["formatted_after"]
+
+
+@pytest.mark.unit
+def test_formatter_converts_colon_block_to_list_without_title_casing():
+    raw = "need:\nraw note fidelity\nquery drift\nchunking"
+    lines = raw.split("\n")
+    signals = parser_service.parse_lines(lines)
+    ops = formatter_service.generate_operations(signals)
+    assert [op["operation"] for op in ops] == [
+        "format_as_list_item",
+        "format_as_list_item",
+        "format_as_list_item",
+    ]
+    assert [op["formatted_after"] for op in ops] == [
+        "- raw note fidelity",
+        "- query drift",
+        "- chunking",
+    ]
+
+
+@pytest.mark.unit
+def test_formatter_quote_line_after_list_is_not_absorbed_into_list():
+    raw = (
+        "need:\nsource credibility\nevidence\nhistorical context\n"
+        "quote from supervisor says structure precedes retrieval"
+    )
+    lines = raw.split("\n")
+    signals = parser_service.parse_lines(lines)
+    ops = formatter_service.generate_operations(signals)
+    assert [op["operation"] for op in ops] == [
+        "format_as_list_item",
+        "format_as_list_item",
+        "format_as_list_item",
+        "format_as_quote",
+    ]
+    assert ops[-1]["formatted_after"] == "> quote from supervisor says structure precedes retrieval"
+
+
+@pytest.mark.unit
+def test_formatter_does_not_split_compound_research_terms():
+    raw = "paper structure weakens boundary quality ablation study depends on false positives"
+    signals = parser_service.parse_lines([raw])
+    ops = formatter_service.generate_operations(signals)
+    assert ops == []
+
+@pytest.mark.unit
+def test_formatter_converts_continuous_stream_into_list():
+    raw = "need raw note fidelity query drift and chunking"
+    signals = parser_service.parse_lines([raw])
+    ops = formatter_service.generate_operations(signals)
+    assert len(ops) == 1
+    assert ops[0]["operation"] == "insert_line_break"
+    assert ops[0]["formatted_after"] == "need:\n- raw note fidelity\n- query drift\n- chunking"
+
+
+@pytest.mark.unit
+def test_formatter_preserves_short_tokens_in_continuous_list():
+    raw = "fix asap api contract backend route frontend state"
+    signals = parser_service.parse_lines([raw])
+    ops = formatter_service.generate_operations(signals)
+    assert len(ops) == 1
+    assert ops[0]["formatted_after"] == "fix:\n- asap\n- api contract\n- backend route\n- frontend state"
+
+
+@pytest.mark.unit
+def test_formatter_does_not_touch_standalone_short_tokens():
+    raw = "np asap"
+    signals = parser_service.parse_lines([raw])
+    ops = formatter_service.generate_operations(signals)
+    assert ops == []

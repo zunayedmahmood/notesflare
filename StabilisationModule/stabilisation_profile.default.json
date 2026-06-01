@@ -1,0 +1,682 @@
+{
+  "version": 1,
+  "profile_name": "notesflare-default-balanced",
+  "formatting_preferences": {
+    "paragraph_density": "balanced",
+    "line_break_aggressiveness": "balanced",
+    "listing_aggressiveness": "moderate",
+    "heading_aggressiveness": "conservative"
+  },
+  "short_tokens": [
+    "np",
+    "rn",
+    "asap",
+    "btw",
+    "tbh",
+    "imo",
+    "idk",
+    "todo",
+    "ETA",
+    "MVP",
+    "API",
+    "DB",
+    "UI",
+    "UX",
+    "NLP",
+    "LLM",
+    "OCR",
+    "RAG",
+    "CPU",
+    "GPU"
+  ],
+  "protected_terms": [
+    "NotesFlare",
+    "MetaMorph",
+    "MiniLM",
+    "Burst",
+    "Flareon",
+    "spaCy",
+    "ONNX",
+    "FastAPI",
+    "SQLite",
+    "Next.js",
+    "React",
+    "Electron"
+  ],
+  "list_header_words": [
+    "need",
+    "needs",
+    "todo",
+    "todos",
+    "tasks",
+    "ideas",
+    "points",
+    "questions",
+    "issues",
+    "problems",
+    "steps",
+    "features",
+    "include",
+    "includes",
+    "requirements",
+    "check",
+    "checks",
+    "remember",
+    "focus",
+    "plan",
+    "plans",
+    "try",
+    "tries",
+    "fix",
+    "fixes",
+    "add",
+    "adds",
+    "compare",
+    "review"
+  ],
+  "continuous_list_headers": [
+    "need",
+    "todo",
+    "tasks",
+    "ideas",
+    "questions",
+    "steps",
+    "features",
+    "fix",
+    "add",
+    "check",
+    "review",
+    "compare",
+    "include",
+    "remember",
+    "focus"
+  ],
+  "continuous_list_item_phrases": [
+    "ablation study",
+    "accept reject",
+    "aggressive mode",
+    "annotation quality",
+    "api contract",
+    "approval path",
+    "autosave safety",
+    "backend route",
+    "benchmark loop",
+    "boundary quality",
+    "brand voice",
+    "budget risk",
+    "burst history",
+    "burst indexing",
+    "cache invalidation",
+    "calibration step",
+    "call reminder",
+    "chapter notes",
+    "chunking",
+    "citation mapping",
+    "class notes",
+    "client feedback",
+    "common mistake",
+    "control group",
+    "cpu fallback",
+    "daily revision",
+    "dataset bias",
+    "decision log",
+    "definition recall",
+    "demo script",
+    "diff review",
+    "domain words",
+    "embedding cache",
+    "error source",
+    "evaluation metric",
+    "evidence chain",
+    "exam pattern",
+    "example problem",
+    "expense check",
+    "false positives",
+    "family errand",
+    "feature scope",
+    "flareon switch",
+    "followup email",
+    "food list",
+    "formatting latency",
+    "formula revision",
+    "founder story",
+    "frontend state",
+    "golden cases",
+    "grammar point",
+    "handover note",
+    "heading detection",
+    "japanese practice",
+    "kanji review",
+    "landing page",
+    "launch plan",
+    "lecture summary",
+    "line breaks",
+    "list detection",
+    "listening drill",
+    "literature review",
+    "local storage",
+    "longer paragraph",
+    "market angle",
+    "meeting agenda",
+    "meeting notes",
+    "memory pressure",
+    "method section",
+    "mock test",
+    "model comparison",
+    "moderate listing",
+    "next milestone",
+    "observation note",
+    "offline mode",
+    "onnx export",
+    "paper structure",
+    "particle confusion",
+    "practice sheet",
+    "pricing model",
+    "privacy layer",
+    "protected terms",
+    "query drift",
+    "quick recap",
+    "quote detection",
+    "raw note fidelity",
+    "raw reading",
+    "reader trust",
+    "reading habit",
+    "research notes",
+    "result table",
+    "retrieval latency",
+    "review comments",
+    "risk list",
+    "sample id",
+    "scope change",
+    "semantic chunking",
+    "semantic search",
+    "sensor noise",
+    "sentence pattern",
+    "session restore",
+    "shadowing audio",
+    "short tokens",
+    "sleep routine",
+    "speaking practice",
+    "sqlite blobs",
+    "sqlite first",
+    "startup speed",
+    "teacher hint",
+    "temperature drift",
+    "test coverage",
+    "timeline issue",
+    "travel idea",
+    "trial repeat",
+    "user feedback",
+    "user profile",
+    "user vocabulary",
+    "vector storage",
+    "vocab deck",
+    "weekend plan",
+    "workout plan"
+  ],
+  "compound_terms": [
+    [
+      "ablation",
+      "study"
+    ],
+    [
+      "aggressive",
+      "mode"
+    ],
+    [
+      "annotation",
+      "quality"
+    ],
+    [
+      "api",
+      "contract"
+    ],
+    [
+      "approval",
+      "path"
+    ],
+    [
+      "autosave",
+      "safety"
+    ],
+    [
+      "backend",
+      "route"
+    ],
+    [
+      "benchmark",
+      "loop"
+    ],
+    [
+      "boundary",
+      "quality"
+    ],
+    [
+      "brand",
+      "voice"
+    ],
+    [
+      "budget",
+      "risk"
+    ],
+    [
+      "burst",
+      "indexing"
+    ],
+    [
+      "cache",
+      "invalidation"
+    ],
+    [
+      "calibration",
+      "step"
+    ],
+    [
+      "call",
+      "reminder"
+    ],
+    [
+      "chapter",
+      "notes"
+    ],
+    [
+      "citation",
+      "mapping"
+    ],
+    [
+      "client",
+      "feedback"
+    ],
+    [
+      "common",
+      "mistake"
+    ],
+    [
+      "control",
+      "group"
+    ],
+    [
+      "cpu",
+      "fallback"
+    ],
+    [
+      "daily",
+      "revision"
+    ],
+    [
+      "dataset",
+      "bias"
+    ],
+    [
+      "decision",
+      "log"
+    ],
+    [
+      "definition",
+      "recall"
+    ],
+    [
+      "demo",
+      "script"
+    ],
+    [
+      "diff",
+      "review"
+    ],
+    [
+      "embedding",
+      "cache"
+    ],
+    [
+      "error",
+      "source"
+    ],
+    [
+      "evaluation",
+      "metric"
+    ],
+    [
+      "evidence",
+      "chain"
+    ],
+    [
+      "exam",
+      "pattern"
+    ],
+    [
+      "example",
+      "problem"
+    ],
+    [
+      "expense",
+      "check"
+    ],
+    [
+      "false",
+      "positives"
+    ],
+    [
+      "family",
+      "errand"
+    ],
+    [
+      "feature",
+      "scope"
+    ],
+    [
+      "flareon",
+      "switch"
+    ],
+    [
+      "followup",
+      "email"
+    ],
+    [
+      "food",
+      "list"
+    ],
+    [
+      "formatting",
+      "latency"
+    ],
+    [
+      "formula",
+      "revision"
+    ],
+    [
+      "founder",
+      "story"
+    ],
+    [
+      "frontend",
+      "state"
+    ],
+    [
+      "golden",
+      "cases"
+    ],
+    [
+      "grammar",
+      "point"
+    ],
+    [
+      "handover",
+      "note"
+    ],
+    [
+      "heading",
+      "detection"
+    ],
+    [
+      "japanese",
+      "practice"
+    ],
+    [
+      "kanji",
+      "review"
+    ],
+    [
+      "landing",
+      "page"
+    ],
+    [
+      "launch",
+      "plan"
+    ],
+    [
+      "lecture",
+      "summary"
+    ],
+    [
+      "line",
+      "breaks"
+    ],
+    [
+      "list",
+      "detection"
+    ],
+    [
+      "listening",
+      "drill"
+    ],
+    [
+      "literature",
+      "review"
+    ],
+    [
+      "longer",
+      "paragraph"
+    ],
+    [
+      "market",
+      "angle"
+    ],
+    [
+      "meeting",
+      "agenda"
+    ],
+    [
+      "method",
+      "section"
+    ],
+    [
+      "mock",
+      "test"
+    ],
+    [
+      "model",
+      "comparison"
+    ],
+    [
+      "moderate",
+      "listing"
+    ],
+    [
+      "next",
+      "milestone"
+    ],
+    [
+      "observation",
+      "note"
+    ],
+    [
+      "offline",
+      "mode"
+    ],
+    [
+      "onnx",
+      "export"
+    ],
+    [
+      "paper",
+      "structure"
+    ],
+    [
+      "particle",
+      "confusion"
+    ],
+    [
+      "practice",
+      "sheet"
+    ],
+    [
+      "pricing",
+      "model"
+    ],
+    [
+      "privacy",
+      "layer"
+    ],
+    [
+      "protected",
+      "terms"
+    ],
+    [
+      "query",
+      "drift"
+    ],
+    [
+      "quick",
+      "recap"
+    ],
+    [
+      "quote",
+      "detection"
+    ],
+    [
+      "raw",
+      "note"
+    ],
+    [
+      "raw",
+      "reading"
+    ],
+    [
+      "reader",
+      "trust"
+    ],
+    [
+      "reading",
+      "habit"
+    ],
+    [
+      "result",
+      "table"
+    ],
+    [
+      "review",
+      "comments"
+    ],
+    [
+      "risk",
+      "list"
+    ],
+    [
+      "sample",
+      "id"
+    ],
+    [
+      "scope",
+      "change"
+    ],
+    [
+      "semantic",
+      "chunking"
+    ],
+    [
+      "semantic",
+      "search"
+    ],
+    [
+      "sensor",
+      "noise"
+    ],
+    [
+      "sentence",
+      "pattern"
+    ],
+    [
+      "session",
+      "restore"
+    ],
+    [
+      "shadowing",
+      "audio"
+    ],
+    [
+      "short",
+      "tokens"
+    ],
+    [
+      "sleep",
+      "routine"
+    ],
+    [
+      "speaking",
+      "practice"
+    ],
+    [
+      "sqlite",
+      "first"
+    ],
+    [
+      "startup",
+      "speed"
+    ],
+    [
+      "teacher",
+      "hint"
+    ],
+    [
+      "temperature",
+      "drift"
+    ],
+    [
+      "test",
+      "coverage"
+    ],
+    [
+      "timeline",
+      "issue"
+    ],
+    [
+      "travel",
+      "idea"
+    ],
+    [
+      "trial",
+      "repeat"
+    ],
+    [
+      "user",
+      "feedback"
+    ],
+    [
+      "user",
+      "profile"
+    ],
+    [
+      "vector",
+      "storage"
+    ],
+    [
+      "vocab",
+      "deck"
+    ],
+    [
+      "weekend",
+      "plan"
+    ],
+    [
+      "workout",
+      "plan"
+    ]
+  ],
+  "break_starters": [
+    "also",
+    "another",
+    "anyway",
+    "besides",
+    "but",
+    "finally",
+    "first",
+    "however",
+    "meanwhile",
+    "moreover",
+    "next",
+    "second",
+    "so",
+    "still",
+    "then",
+    "therefore",
+    "third",
+    "though",
+    "yet"
+  ],
+  "soft_break_starters": [
+    "maybe",
+    "perhaps",
+    "probably",
+    "possibly"
+  ]
+}

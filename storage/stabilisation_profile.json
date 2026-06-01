@@ -1,0 +1,1240 @@
+{
+  "break_starters": [
+    "next",
+    "however",
+    "retrieval",
+    "maybe",
+    "but",
+    "the",
+    "another",
+    "this",
+    "chunking",
+    "launch",
+    "first",
+    "community",
+    "founder",
+    "demo",
+    "notesflare",
+    "pricing",
+    "onboarding",
+    "economics",
+    "backend",
+    "proposal",
+    "marketing",
+    "lineage",
+    "benchmark",
+    "embedding",
+    "sqlite",
+    "parser",
+    "control",
+    "measurement",
+    "temperature",
+    "confidence",
+    "study",
+    "focus",
+    "late",
+    "nlp",
+    "protected",
+    "diff",
+    "hiragana",
+    "sentence",
+    "listening",
+    "japanese"
+  ],
+  "compound_terms": [
+    [
+      "raw",
+      "note"
+    ],
+    [
+      "note",
+      "fidelity"
+    ],
+    [
+      "query",
+      "drift"
+    ],
+    [
+      "embedding",
+      "cache"
+    ],
+    [
+      "model",
+      "comparison"
+    ],
+    [
+      "semantic",
+      "search"
+    ],
+    [
+      "review",
+      "comments"
+    ],
+    [
+      "dataset",
+      "bias"
+    ],
+    [
+      "false",
+      "positives"
+    ],
+    [
+      "ablation",
+      "study"
+    ],
+    [
+      "sharing",
+      "behavior"
+    ],
+    [
+      "product",
+      "promise"
+    ],
+    [
+      "beta",
+      "invite"
+    ],
+    [
+      "trust",
+      "signal"
+    ],
+    [
+      "activation",
+      "moment"
+    ],
+    [
+      "pricing",
+      "idea"
+    ],
+    [
+      "prototype",
+      "demo"
+    ],
+    [
+      "demo",
+      "video"
+    ],
+    [
+      "low",
+      "friction"
+    ],
+    [
+      "friction",
+      "capture"
+    ],
+    [
+      "feedback",
+      "loop"
+    ],
+    [
+      "founder",
+      "story"
+    ],
+    [
+      "retention",
+      "loop"
+    ],
+    [
+      "first",
+      "impression"
+    ],
+    [
+      "onboarding",
+      "flow"
+    ],
+    [
+      "waitlist",
+      "page"
+    ],
+    [
+      "landing",
+      "page"
+    ],
+    [
+      "exam",
+      "trick"
+    ],
+    [
+      "japanese",
+      "grammar"
+    ],
+    [
+      "teacher",
+      "example"
+    ],
+    [
+      "boundary",
+      "condition"
+    ],
+    [
+      "machine",
+      "design"
+    ],
+    [
+      "common",
+      "mistake"
+    ],
+    [
+      "fluid",
+      "mechanics"
+    ],
+    [
+      "practice",
+      "problem"
+    ],
+    [
+      "organic",
+      "chemistry"
+    ],
+    [
+      "owner",
+      "decision"
+    ],
+    [
+      "backend",
+      "review"
+    ],
+    [
+      "launch",
+      "check"
+    ],
+    [
+      "client",
+      "call"
+    ],
+    [
+      "technical",
+      "blocker"
+    ],
+    [
+      "design",
+      "review"
+    ],
+    [
+      "main",
+      "risk"
+    ],
+    [
+      "marketing",
+      "meeting"
+    ],
+    [
+      "ui",
+      "expectation"
+    ],
+    [
+      "proposal",
+      "discussion"
+    ],
+    [
+      "testing",
+      "gap"
+    ],
+    [
+      "weekly",
+      "sync"
+    ],
+    [
+      "pending",
+      "diff"
+    ],
+    [
+      "build",
+      "output"
+    ],
+    [
+      "electron",
+      "startup"
+    ],
+    [
+      "accepted",
+      "state"
+    ],
+    [
+      "test",
+      "fixture"
+    ],
+    [
+      "line",
+      "id"
+    ],
+    [
+      "diff",
+      "panel"
+    ],
+    [
+      "blank",
+      "line"
+    ],
+    [
+      "runtime",
+      "error"
+    ],
+    [
+      "hidden",
+      "assumption"
+    ],
+    [
+      "central",
+      "question"
+    ],
+    [
+      "author",
+      "claim"
+    ],
+    [
+      "source",
+      "credibility"
+    ],
+    [
+      "reader",
+      "expectation"
+    ],
+    [
+      "method",
+      "explanation"
+    ],
+    [
+      "historical",
+      "context"
+    ],
+    [
+      "case",
+      "study"
+    ],
+    [
+      "unexpected",
+      "peak"
+    ],
+    [
+      "measurement",
+      "log"
+    ],
+    [
+      "error",
+      "source"
+    ],
+    [
+      "instrument",
+      "reading"
+    ],
+    [
+      "surface",
+      "texture"
+    ],
+    [
+      "solution",
+      "color"
+    ],
+    [
+      "microscopy",
+      "image"
+    ],
+    [
+      "solvent",
+      "ratio"
+    ],
+    [
+      "temperature",
+      "drift"
+    ],
+    [
+      "control",
+      "group"
+    ],
+    [
+      "standard",
+      "deviation"
+    ],
+    [
+      "morning",
+      "thought"
+    ],
+    [
+      "small",
+      "win"
+    ],
+    [
+      "next",
+      "step"
+    ],
+    [
+      "comes",
+      "back"
+    ],
+    [
+      "back",
+      "after"
+    ],
+    [
+      "is",
+      "improving"
+    ],
+    [
+      "should",
+      "not"
+    ],
+    [
+      "not",
+      "become"
+    ],
+    [
+      "another",
+      "point"
+    ],
+    [
+      "point",
+      "is"
+    ],
+    [
+      "depends",
+      "on"
+    ],
+    [
+      "audit",
+      "trail"
+    ],
+    [
+      "nlp",
+      "pipeline"
+    ],
+    [
+      "fallback",
+      "mode"
+    ],
+    [
+      "semantic",
+      "chunking"
+    ],
+    [
+      "future",
+      "transformer"
+    ],
+    [
+      "review",
+      "panel"
+    ],
+    [
+      "user",
+      "authority"
+    ],
+    [
+      "formatter",
+      "intensity"
+    ],
+    [
+      "boundary",
+      "prediction"
+    ],
+    [
+      "local",
+      "first"
+    ],
+    [
+      "first",
+      "design"
+    ],
+    [
+      "panel",
+      "should"
+    ],
+    [
+      "should",
+      "expose"
+    ],
+    [
+      "must",
+      "preserve"
+    ],
+    [
+      "particle",
+      "choice"
+    ],
+    [
+      "hiragana",
+      "practice"
+    ],
+    [
+      "mistake",
+      "pattern"
+    ],
+    [
+      "daily",
+      "review"
+    ],
+    [
+      "review",
+      "session"
+    ],
+    [
+      "class",
+      "note"
+    ],
+    [
+      "speaking",
+      "practice"
+    ],
+    [
+      "session",
+      "needs"
+    ],
+    [
+      "listening",
+      "drill"
+    ],
+    [
+      "sqlite",
+      "first"
+    ],
+    [
+      "cache",
+      "invalidation"
+    ],
+    [
+      "cpu",
+      "fallback"
+    ],
+    [
+      "test",
+      "coverage"
+    ],
+    [
+      "demo",
+      "script"
+    ],
+    [
+      "brand",
+      "voice"
+    ],
+    [
+      "market",
+      "angle"
+    ],
+    [
+      "risk",
+      "list"
+    ],
+    [
+      "pricing",
+      "model"
+    ],
+    [
+      "maybe",
+      "later"
+    ],
+    [
+      "quick",
+      "recap"
+    ],
+    [
+      "lecture",
+      "summary"
+    ],
+    [
+      "formula",
+      "revision"
+    ],
+    [
+      "example",
+      "problem"
+    ],
+    [
+      "definition",
+      "recall"
+    ],
+    [
+      "exam",
+      "pattern"
+    ],
+    [
+      "scope",
+      "change"
+    ],
+    [
+      "timeline",
+      "issue"
+    ],
+    [
+      "handover",
+      "note"
+    ],
+    [
+      "flareon",
+      "switch"
+    ],
+    [
+      "line",
+      "breaks"
+    ],
+    [
+      "list",
+      "detection"
+    ],
+    [
+      "quote",
+      "detection"
+    ],
+    [
+      "result",
+      "table"
+    ],
+    [
+      "sample",
+      "id"
+    ],
+    [
+      "japanese",
+      "practice"
+    ],
+    [
+      "reading",
+      "habit"
+    ],
+    [
+      "workout",
+      "plan"
+    ],
+    [
+      "family",
+      "errand"
+    ],
+    [
+      "expense",
+      "check"
+    ],
+    [
+      "call",
+      "reminder"
+    ],
+    [
+      "shadowing",
+      "audio"
+    ],
+    [
+      "vocab",
+      "deck"
+    ],
+    [
+      "sentence",
+      "pattern"
+    ],
+    [
+      "offline",
+      "mode"
+    ],
+    [
+      "autosave",
+      "safety"
+    ],
+    [
+      "benchmark",
+      "loop"
+    ],
+    [
+      "user",
+      "profile"
+    ],
+    [
+      "evidence",
+      "chain"
+    ],
+    [
+      "golden",
+      "cases"
+    ],
+    [
+      "startup",
+      "speed"
+    ],
+    [
+      "decision",
+      "log"
+    ],
+    [
+      "followup",
+      "email"
+    ],
+    [
+      "heading",
+      "detection"
+    ],
+    [
+      "burst",
+      "indexing"
+    ],
+    [
+      "particle",
+      "confusion"
+    ],
+    [
+      "mock",
+      "test"
+    ],
+    [
+      "short",
+      "tokens"
+    ],
+    [
+      "protected",
+      "terms"
+    ]
+  ],
+  "continuous_list_headers": [
+    "focus",
+    "review",
+    "need",
+    "fix",
+    "add",
+    "check",
+    "compare",
+    "include",
+    "todo",
+    "questions"
+  ],
+  "continuous_list_item_phrases": [
+    "raw note fidelity",
+    "query drift",
+    "chunking",
+    "embedding cache",
+    "model comparison",
+    "semantic search",
+    "review comments",
+    "retrieval",
+    "dataset bias",
+    "false positives",
+    "ablation study",
+    "sharing behavior",
+    "product promise",
+    "beta invite",
+    "trust signal",
+    "activation moment",
+    "pricing idea",
+    "prototype demo",
+    "demo video",
+    "low friction capture",
+    "feedback loop",
+    "founder story",
+    "retention loop",
+    "first impression",
+    "onboarding flow",
+    "waitlist page",
+    "landing page",
+    "exam trick",
+    "definition",
+    "japanese grammar",
+    "teacher example",
+    "derivation",
+    "boundary condition",
+    "machine design",
+    "common mistake",
+    "thermodynamics",
+    "fluid mechanics",
+    "practice problem",
+    "diagram",
+    "organic chemistry",
+    "owner decision",
+    "approval",
+    "backend review",
+    "timeline",
+    "launch check",
+    "client call",
+    "technical blocker",
+    "design review",
+    "main risk",
+    "marketing meeting",
+    "ui expectation",
+    "proposal discussion",
+    "testing gap",
+    "weekly sync",
+    "pending diff",
+    "build output",
+    "electron startup",
+    "accepted state",
+    "test fixture",
+    "line id",
+    "diff panel",
+    "blank line",
+    "runtime error",
+    "hidden assumption",
+    "central question",
+    "author claim",
+    "source credibility",
+    "reader expectation",
+    "method explanation",
+    "evidence",
+    "historical context",
+    "tone",
+    "quote",
+    "case study",
+    "unexpected peak",
+    "repeatability",
+    "measurement log",
+    "baseline",
+    "error source",
+    "instrument reading",
+    "surface texture",
+    "solution color",
+    "microscopy image",
+    "solvent ratio",
+    "temperature drift",
+    "control group",
+    "standard deviation",
+    "yield",
+    "habit",
+    "pressure",
+    "morning thought",
+    "distraction",
+    "confidence",
+    "reflection",
+    "fear",
+    "energy",
+    "small win",
+    "focus",
+    "clarity",
+    "next step",
+    "decision",
+    "deadline",
+    "motivation",
+    "comes back after",
+    "but",
+    "is improving",
+    "should not become",
+    "another point is",
+    "depends on",
+    "audit trail",
+    "nlp pipeline",
+    "fallback mode",
+    "latency",
+    "semantic chunking",
+    "future transformer",
+    "review panel",
+    "meaning",
+    "user authority",
+    "formatter intensity",
+    "boundary prediction",
+    "local first design",
+    "panel should expose",
+    "because",
+    "must preserve",
+    "pronunciation",
+    "particle choice",
+    "hiragana practice",
+    "mistake pattern",
+    "daily review",
+    "review session",
+    "class note",
+    "speaking practice",
+    "session needs",
+    "listening drill",
+    "asap",
+    "sqlite first",
+    "cache invalidation",
+    "cpu fallback",
+    "test coverage",
+    "demo script",
+    "brand voice",
+    "market angle",
+    "risk list",
+    "pricing model",
+    "maybe later",
+    "quick recap",
+    "lecture summary",
+    "formula revision",
+    "example problem",
+    "definition recall",
+    "exam pattern",
+    "idk",
+    "db",
+    "scope change",
+    "timeline issue",
+    "handover note",
+    "flareon switch",
+    "line breaks",
+    "list detection",
+    "quote detection",
+    "result table",
+    "sample id",
+    "japanese practice",
+    "reading habit",
+    "workout plan",
+    "family errand",
+    "expense check",
+    "call reminder",
+    "shadowing audio",
+    "vocab deck",
+    "sentence pattern",
+    "ux",
+    "offline mode",
+    "autosave safety",
+    "benchmark loop",
+    "user profile",
+    "evidence chain",
+    "golden cases",
+    "startup speed",
+    "rn",
+    "mvp",
+    "decision log",
+    "followup email",
+    "heading detection",
+    "burst indexing",
+    "particle confusion",
+    "mock test",
+    "short tokens",
+    "protected terms",
+    "np",
+    "btw",
+    "ui",
+    "api"
+  ],
+  "formatting_preferences": {
+    "heading_aggressiveness": "conservative",
+    "line_break_aggressiveness": "aggressive",
+    "listing_aggressiveness": "aggressive",
+    "paragraph_density": "balanced"
+  },
+  "learned_from_accepts": {
+    "accepted_operations": {
+      "format_as_heading": 94,
+      "format_as_list_item": 237,
+      "format_as_quote": 34,
+      "insert_line_break": 1701,
+      "insert_paragraph_break": 21
+    },
+    "break_starters": {
+      "another": 82,
+      "backend": 4,
+      "benchmark": 2,
+      "but": 110,
+      "chunking": 6,
+      "community": 5,
+      "confidence": 26,
+      "control": 2,
+      "demo": 8,
+      "diff": 3,
+      "economics": 4,
+      "embedding": 7,
+      "first": 19,
+      "focus": 2,
+      "founder": 3,
+      "hiragana": 6,
+      "however": 115,
+      "japanese": 1,
+      "late": 1,
+      "launch": 3,
+      "lineage": 1,
+      "listening": 3,
+      "marketing": 2,
+      "maybe": 100,
+      "measurement": 2,
+      "next": 121,
+      "nlp": 6,
+      "notesflare": 46,
+      "onboarding": 1,
+      "parser": 1,
+      "pricing": 3,
+      "proposal": 2,
+      "protected": 2,
+      "retrieval": 4,
+      "sentence": 7,
+      "sqlite": 2,
+      "study": 5,
+      "temperature": 1,
+      "the": 84,
+      "this": 45
+    },
+    "continuous_list_headers": {
+      "add": 100,
+      "check": 100,
+      "compare": 100,
+      "fix": 100,
+      "focus": 102,
+      "include": 100,
+      "need": 100,
+      "questions": 100,
+      "review": 102,
+      "todo": 100
+    },
+    "continuous_list_item_phrases": {
+      "ablation study": 52,
+      "accepted state": 1,
+      "activation moment": 4,
+      "another point is": 1,
+      "api": 25,
+      "approval": 2,
+      "asap": 50,
+      "audit trail": 4,
+      "author claim": 1,
+      "autosave safety": 100,
+      "backend review": 1,
+      "baseline": 1,
+      "because": 2,
+      "benchmark loop": 100,
+      "beta invite": 1,
+      "blank line": 1,
+      "boundary condition": 1,
+      "boundary prediction": 1,
+      "brand voice": 100,
+      "btw": 50,
+      "build output": 3,
+      "burst indexing": 50,
+      "but": 1,
+      "cache invalidation": 100,
+      "call reminder": 50,
+      "case study": 1,
+      "central question": 1,
+      "chunking": 2,
+      "clarity": 2,
+      "class note": 1,
+      "client call": 1,
+      "comes back after": 1,
+      "common mistake": 4,
+      "confidence": 8,
+      "control group": 51,
+      "cpu fallback": 100,
+      "daily review": 3,
+      "dataset bias": 1,
+      "db": 50,
+      "deadline": 1,
+      "decision": 1,
+      "decision log": 50,
+      "definition": 1,
+      "definition recall": 50,
+      "demo script": 100,
+      "demo video": 4,
+      "depends on": 2,
+      "derivation": 2,
+      "design review": 1,
+      "diagram": 2,
+      "diff panel": 2,
+      "distraction": 3,
+      "electron startup": 1,
+      "embedding cache": 4,
+      "energy": 2,
+      "error source": 103,
+      "evidence": 2,
+      "evidence chain": 50,
+      "exam pattern": 50,
+      "exam trick": 4,
+      "example problem": 100,
+      "expense check": 50,
+      "fallback mode": 1,
+      "false positives": 2,
+      "family errand": 100,
+      "fear": 4,
+      "feedback loop": 3,
+      "first impression": 1,
+      "flareon switch": 100,
+      "fluid mechanics": 1,
+      "focus": 2,
+      "followup email": 50,
+      "formatter intensity": 2,
+      "formula revision": 100,
+      "founder story": 1,
+      "future transformer": 1,
+      "golden cases": 50,
+      "habit": 3,
+      "handover note": 100,
+      "heading detection": 50,
+      "hidden assumption": 3,
+      "hiragana practice": 1,
+      "historical context": 1,
+      "idk": 25,
+      "instrument reading": 2,
+      "is improving": 1,
+      "japanese grammar": 4,
+      "japanese practice": 100,
+      "landing page": 1,
+      "latency": 3,
+      "launch check": 1,
+      "lecture summary": 100,
+      "line breaks": 100,
+      "line id": 1,
+      "list detection": 100,
+      "listening drill": 1,
+      "local first design": 2,
+      "low friction capture": 4,
+      "machine design": 2,
+      "main risk": 1,
+      "market angle": 100,
+      "marketing meeting": 1,
+      "maybe later": 125,
+      "meaning": 5,
+      "measurement log": 1,
+      "method explanation": 2,
+      "microscopy image": 2,
+      "mistake pattern": 1,
+      "mock test": 50,
+      "model comparison": 2,
+      "morning thought": 2,
+      "motivation": 1,
+      "must preserve": 1,
+      "mvp": 50,
+      "next step": 3,
+      "nlp pipeline": 2,
+      "np": 25,
+      "offline mode": 100,
+      "onboarding flow": 1,
+      "organic chemistry": 1,
+      "owner decision": 4,
+      "panel should expose": 1,
+      "particle choice": 1,
+      "particle confusion": 50,
+      "pending diff": 2,
+      "practice problem": 2,
+      "pressure": 4,
+      "pricing idea": 3,
+      "pricing model": 50,
+      "product promise": 2,
+      "pronunciation": 2,
+      "proposal discussion": 1,
+      "protected terms": 50,
+      "prototype demo": 3,
+      "query drift": 102,
+      "quick recap": 100,
+      "quote": 1,
+      "quote detection": 100,
+      "raw note fidelity": 103,
+      "reader expectation": 3,
+      "reading habit": 100,
+      "reflection": 1,
+      "repeatability": 3,
+      "result table": 100,
+      "retention loop": 1,
+      "retrieval": 1,
+      "review comments": 3,
+      "review panel": 1,
+      "review session": 2,
+      "risk list": 50,
+      "rn": 25,
+      "runtime error": 1,
+      "sample id": 100,
+      "scope change": 100,
+      "semantic chunking": 102,
+      "semantic search": 2,
+      "sentence pattern": 100,
+      "session needs": 1,
+      "shadowing audio": 100,
+      "sharing behavior": 1,
+      "short tokens": 50,
+      "should not become": 1,
+      "small win": 1,
+      "solution color": 5,
+      "solvent ratio": 2,
+      "source credibility": 3,
+      "speaking practice": 1,
+      "sqlite first": 100,
+      "standard deviation": 1,
+      "startup speed": 50,
+      "surface texture": 2,
+      "teacher example": 4,
+      "technical blocker": 2,
+      "temperature drift": 51,
+      "test coverage": 100,
+      "test fixture": 3,
+      "testing gap": 1,
+      "thermodynamics": 2,
+      "timeline": 3,
+      "timeline issue": 100,
+      "tone": 2,
+      "trust signal": 2,
+      "ui": 25,
+      "ui expectation": 1,
+      "unexpected peak": 2,
+      "user authority": 2,
+      "user profile": 100,
+      "ux": 50,
+      "vocab deck": 100,
+      "waitlist page": 1,
+      "weekly sync": 1,
+      "workout plan": 100,
+      "yield": 1
+    },
+    "protected_terms": {
+      "Electron": 19,
+      "FastAPI": 10,
+      "Japanese": 31,
+      "MetaMorph": 9,
+      "NotesFlare": 57,
+      "SQLite": 14,
+      "This": 37
+    },
+    "short_tokens": {
+      "a": 17,
+      "api": 25,
+      "asap": 50,
+      "be": 45,
+      "by": 11,
+      "cpu": 100,
+      "db": 50,
+      "i": 22,
+      "id": 114,
+      "id.": 1,
+      "if": 25,
+      "is": 145,
+      "mvp": 50,
+      "my": 93,
+      "nlp": 19,
+      "np": 25,
+      "of": 16,
+      "on": 123,
+      "rn": 25,
+      "to": 75,
+      "todo": 100,
+      "ui": 40,
+      "up": 9,
+      "up.": 1,
+      "ux": 50
+    }
+  },
+  "list_header_words": [
+    "focus",
+    "review",
+    "need",
+    "fix",
+    "add",
+    "check",
+    "compare",
+    "include",
+    "todo",
+    "questions"
+  ],
+  "profile_name": "notesflare-learned-user-profile",
+  "protected_terms": [
+    "NotesFlare",
+    "This",
+    "Japanese",
+    "Electron",
+    "SQLite",
+    "FastAPI",
+    "MetaMorph"
+  ],
+  "short_tokens": [
+    "my",
+    "on",
+    "is",
+    "to",
+    "I",
+    "a",
+    "if",
+    "be",
+    "of",
+    "up",
+    "UI",
+    "by",
+    "up.",
+    "id",
+    "id.",
+    "NLP",
+    "asap",
+    "cpu",
+    "db",
+    "todo",
+    "ux",
+    "rn",
+    "mvp",
+    "np",
+    "api"
+  ],
+  "updated_at": "2026-06-01T21:45:56.778169+00:00",
+  "version": 1
+}

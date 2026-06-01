@@ -26,6 +26,12 @@ def store_diffs(burst_id: int, line_records: list[dict], operations: list[dict])
     """
     db = get_db()
     now = datetime.now(timezone.utc).isoformat()
+    try:
+        from services.formatting.usage_learning_service import ensure_usage_tables
+        ensure_usage_tables()
+    except Exception:
+        # Usage tracking must never block formatting suggestions.
+        pass
 
     # Delete pending diffs only (do not touch accepted/rejected)
     db.execute(
@@ -115,6 +121,12 @@ def accept_diff(diff_id: str) -> dict:
         (diff["formatted_after"], now, diff["line_id"])
     )
     _record_history(db, diff["line_id"], "accept", {"diff_id": diff_id})
+    usage_event = None
+    try:
+        from services.formatting.usage_learning_service import record_diff_decision
+        usage_event = record_diff_decision(diff, "accepted")
+    except Exception as exc:
+        usage_event = {"error": f"{exc.__class__.__name__}: {exc}"}
     db.commit()
 
     return {
@@ -122,6 +134,7 @@ def accept_diff(diff_id: str) -> dict:
         "status": "accepted",
         "line_id": diff["line_id"],
         "updated_formatted_line": diff["formatted_after"],
+        "usage_event": usage_event,
     }
 
 
@@ -151,6 +164,12 @@ def reject_diff(diff_id: str) -> dict:
         (now, diff["line_id"])
     )
     _record_history(db, diff["line_id"], "reject", {"diff_id": diff_id})
+    usage_event = None
+    try:
+        from services.formatting.usage_learning_service import record_diff_decision
+        usage_event = record_diff_decision(diff, "rejected")
+    except Exception as exc:
+        usage_event = {"error": f"{exc.__class__.__name__}: {exc}"}
     db.commit()
 
     # Get updated raw_line for response
@@ -163,6 +182,7 @@ def reject_diff(diff_id: str) -> dict:
         "status": "rejected",
         "line_id": diff["line_id"],
         "updated_formatted_line": dict(line)["raw_line"],
+        "usage_event": usage_event,
     }
 
 

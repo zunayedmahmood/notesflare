@@ -20,7 +20,14 @@
     "test:frontend:watch": "npx vitest --watch",
     "test:coverage": "npm run test:backend && npm run test:frontend && echo 'Coverage in coverage/'",
     "stabilisation": "python StabilisationModule/run_stabilisation_benchmark.py",
-    "stabilisation:no-embeddings": "python StabilisationModule/run_stabilisation_benchmark.py --no-embeddings"
+    "stabilisation:no-embeddings": "python StabilisationModule/run_stabilisation_benchmark.py --no-embeddings",
+    "stabilisation:continuous": "python StabilisationModule/run_stabilisation_benchmark.py --input StabilisationModule/examples_1000_continuous_stream.json --output StabilisationModule/outputs/formatted_results_continuous.json --summary StabilisationModule/outputs/benchmark_summary_continuous.json --benchmark-db StabilisationModule/outputs/stabilisation_benchmark_continuous.db",
+    "stabilisation:continuous:no-embeddings": "python StabilisationModule/run_stabilisation_benchmark.py --input StabilisationModule/examples_1000_continuous_stream.json --output StabilisationModule/outputs/formatted_results_continuous.json --summary StabilisationModule/outputs/benchmark_summary_continuous.json --benchmark-db StabilisationModule/outputs/stabilisation_benchmark_continuous.db --no-embeddings",
+    "stabilisation:progressive": "python StabilisationModule/run_stabilisation_benchmark.py --input StabilisationModule/examples_1000_progressive_usage.json --output StabilisationModule/outputs/formatted_results_progressive_usage.json --summary StabilisationModule/outputs/benchmark_summary_progressive_usage.json --benchmark-db StabilisationModule/outputs/stabilisation_benchmark_progressive_usage.db --simulate-decisions --reset-progressive-profile --study-old-data",
+    "stabilisation:progressive:no-embeddings": "python StabilisationModule/run_stabilisation_benchmark.py --input StabilisationModule/examples_1000_progressive_usage.json --output StabilisationModule/outputs/formatted_results_progressive_usage.json --summary StabilisationModule/outputs/benchmark_summary_progressive_usage.json --benchmark-db StabilisationModule/outputs/stabilisation_benchmark_progressive_usage.db --simulate-decisions --reset-progressive-profile --study-old-data --no-embeddings",
+    "stabilisation:generate-progressive": "python StabilisationModule/generate_progressive_usage_examples.py",
+    "stabilisation:all": "npm run stabilisation && npm run stabilisation:continuous && npm run stabilisation:progressive",
+    "stabilisation:all:no-embeddings": "npm run stabilisation:no-embeddings && npm run stabilisation:continuous:no-embeddings && npm run stabilisation:progressive:no-embeddings"
   },
   "dependencies": {
     "next": "14.2.0",
