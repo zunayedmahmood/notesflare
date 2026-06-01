@@ -7,21 +7,23 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:electron\"",
     "dev:frontend": "next dev frontend",
-    "dev:electron": "wait-on http://localhost:3000 && tsc -p tsconfig.electron.json && electron .",
+    "dev:electron": "wait-on http://127.0.0.1:3000 && tsc -p tsconfig.electron.json && electron . --no-sandbox",
     "build:frontend": "next build frontend",
     "build:electron": "tsc -p tsconfig.electron.json",
     "build": "npm run build:frontend && npm run build:electron",
-    "start": "electron .",
+    "start": "electron . --no-sandbox",
     "test": "npm run test:backend && npm run test:frontend",
     "test:backend": "./scripts/test-backend.sh",
     "test:frontend": "./scripts/test-frontend.sh",
     "test:e2e": "./scripts/test-e2e.sh",
     "test:backend:watch": "cd backend && pytest-watch",
     "test:frontend:watch": "npx vitest --watch",
-    "test:coverage": "npm run test:backend && npm run test:frontend && echo 'Coverage in coverage/'"
+    "test:coverage": "npm run test:backend && npm run test:frontend && echo 'Coverage in coverage/'",
+    "stabilisation": "python StabilisationModule/run_stabilisation_benchmark.py",
+    "stabilisation:no-embeddings": "python StabilisationModule/run_stabilisation_benchmark.py --no-embeddings"
   },
   "dependencies": {
-    "next": "^14.2.0",
+    "next": "14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
   },

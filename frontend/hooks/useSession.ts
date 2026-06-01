@@ -31,7 +31,7 @@ export function useSession() {
 
   async function initSession() {
     try {
-      // Single call replaces the V1 two-step startup
+      setState((prev) => ({ ...prev, isLoading: true, error: null }));
       const [flareons, resume] = await Promise.all([
         api.listFlareons(),
         api.resumeSession(),
@@ -46,12 +46,12 @@ export function useSession() {
         isLoading: false,
         error: null,
       });
-    } catch (err) {
+    } catch (err: any) {
       console.error("[useSession] Init failed:", err);
       setState((prev) => ({
         ...prev,
         isLoading: false,
-        error: "Could not connect to backend.",
+        error: err?.message || "Could not connect to backend.",
       }));
     }
   }
@@ -68,24 +68,45 @@ export function useSession() {
         activeBurstId: result.burst_id,
         streamContent: result.stream_content,
         burstStartedAt: result.started_at,
+        error: null,
       }));
-    } catch (err) {
+    } catch (err: any) {
       console.error("[useSession] Switch failed:", err);
+      setState((prev) => ({
+        ...prev,
+        error: err?.message || "Failed to switch Flareon.",
+      }));
     }
   }
 
   async function createFlareon(name: string): Promise<void> {
-    await api.createFlareon(name);
-    // After creation, switch to the new Flareon using the standard switch path
-    const flareons = await api.listFlareons();
-    const created = flareons.find((f) => f.name === name);
-    if (created) {
-      await switchFlareon(created.id);
+    try {
+      await api.createFlareon(name);
+      // After creation, switch to the new Flareon using the standard switch path
+      const flareons = await api.listFlareons();
+      const created = flareons.find((f) => f.name === name);
+      if (created) {
+        await switchFlareon(created.id);
+      } else {
+        setState((prev) => ({
+          ...prev,
+          flareons,
+          error: null,
+        }));
+      }
+    } catch (err: any) {
+      console.error("[useSession] Create failed:", err);
+      setState((prev) => ({
+        ...prev,
+        error: err?.message || "Failed to create Flareon.",
+      }));
+      throw err;
     }
   }
 
   return {
     ...state,
+    initSession,
     switchFlareon,
     createFlareon,
   };

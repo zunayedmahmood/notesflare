@@ -1,7 +1,7 @@
 # services/burst_service.py
 
 from database.db import get_db
-from datetime import datetime, timezone, timedelta
+import datetime
 
 CONTINUITY_WINDOW_MINUTES = 30
 
@@ -26,14 +26,14 @@ def get_or_create_active_burst(flareon_id: int) -> dict:
 
     if latest_burst is not None:
         last_updated = _parse_iso(latest_burst["updated_at"])
-        now = datetime.now(timezone.utc)
+        now = datetime.datetime.now(datetime.timezone.utc)
         elapsed = now - last_updated
 
         # Treat negative elapsed (system clock skew) as 0
         if elapsed.total_seconds() < 0:
-            elapsed = timedelta(seconds=0)
+            elapsed = datetime.timedelta(seconds=0)
 
-        if elapsed < timedelta(minutes=CONTINUITY_WINDOW_MINUTES):
+        if elapsed < datetime.timedelta(minutes=CONTINUITY_WINDOW_MINUTES):
             return dict(latest_burst)
 
     return _create_burst(flareon_id)
@@ -41,7 +41,7 @@ def get_or_create_active_burst(flareon_id: int) -> dict:
 
 def _create_burst(flareon_id: int) -> dict:
     db = get_db()
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.datetime.now(datetime.timezone.utc).isoformat()
 
     burst_cursor = db.execute(
         "INSERT INTO bursts (flareon_id, started_at, created_at, updated_at) VALUES (?, ?, ?, ?)",
@@ -96,9 +96,9 @@ def get_all_bursts_for_flareon(flareon_id: int) -> list[dict]:
     return result
 
 
-def _parse_iso(dt_string: str) -> datetime:
+def _parse_iso(dt_string: str) -> datetime.datetime:
     """Parse ISO 8601 string from SQLite into an aware datetime."""
-    dt = datetime.fromisoformat(dt_string)
+    dt = datetime.datetime.fromisoformat(dt_string)
     if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
+        dt = dt.replace(tzinfo=datetime.timezone.utc)
     return dt

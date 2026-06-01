@@ -21,6 +21,12 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+import freezegun
+freezegun.configure(extend_ignore_list=[
+    'transformers', 'torch', 'spacy', 'sentence_transformers',
+    'PIL', 'huggingface_hub', 'numpy', 'onnxruntime'
+])
+
 from database.db import init_db, get_db
 from main import app
 
@@ -111,4 +117,37 @@ def test_client(test_db):
     with TestClient(app) as c:
         yield c
     app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def burst_with_content(test_db):
+    """
+    Creates a Flareon + Burst and appends multi-line content.
+    Returns dict with flareon_id, burst_id, raw_text.
+    """
+    from services.flareon_service import create_flareon as _create_flareon
+    from services.burst_service import get_or_create_active_burst
+    from services.append_service import append_chunk
+
+    flareon = _create_flareon("Formatting Test Flareon")
+    burst = get_or_create_active_burst(flareon["id"])
+    burst_id = burst["id"]
+
+    text_chunks = [
+        "this is the first thought in the burst\n",
+        "and this is a continuation of thinking\n",
+        "need: embeddings\n",
+        "need: chunking\n",
+        "need: vector cache\n",
+        "some final reflection here",
+    ]
+    for chunk in text_chunks:
+        append_chunk(burst_id, chunk)
+
+    return {
+        "flareon_id": flareon["id"],
+        "burst_id": burst_id,
+        "raw_text": "".join(text_chunks),
+    }
+
 

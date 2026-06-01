@@ -1,10 +1,13 @@
 # main.py
 
 import uvicorn
-from fastapi import FastAPI
+import sqlite3
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from database.db import init_db
 from api.routes import router
+from api.formatting_routes import formatting_router
 
 
 app = FastAPI(
@@ -23,6 +26,24 @@ app.add_middleware(
 )
 
 
+@app.exception_handler(sqlite3.Error)
+def sqlite_exception_handler(request: Request, exc: sqlite3.Error):
+    print(f"[DB Error] Unhandled SQLite exception: {exc}")
+    return JSONResponse(
+        status_code=500,
+        content={"detail": f"Database error occurred: {str(exc)}"},
+    )
+
+
+@app.exception_handler(Exception)
+def global_exception_handler(request: Request, exc: Exception):
+    print(f"[Global Error] Unhandled exception: {exc}")
+    return JSONResponse(
+        status_code=500,
+        content={"detail": f"Internal server error: {str(exc)}"},
+    )
+
+
 @app.on_event("startup")
 def startup():
     """Initialize the database on server start."""
@@ -31,6 +52,7 @@ def startup():
 
 
 app.include_router(router, prefix="/api")
+app.include_router(formatting_router, prefix="/api")
 
 
 if __name__ == "__main__":

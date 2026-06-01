@@ -1,6 +1,7 @@
 // components/stream/NavControls.tsx
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 interface NavControlsProps {
@@ -11,11 +12,13 @@ interface NavControlsProps {
 export default function NavControls({ flareonId, onOpenArchive }: NavControlsProps) {
   const router = useRouter();
 
+  const [isHovered, setIsHovered] = useState(false);
+
   function handleArchive() {
     if (flareonId !== null) {
       router.push(`/flareon/${flareonId}`);
+      onOpenArchive();
     }
-    onOpenArchive();
   }
 
   const btnStyle: React.CSSProperties = {
@@ -24,7 +27,7 @@ export default function NavControls({ flareonId, onOpenArchive }: NavControlsPro
     cursor: "pointer",
     fontFamily: "var(--font-ui)",
     fontSize: "11px",
-    color: "var(--text-secondary)",
+    color: isHovered ? "var(--text-primary)" : "var(--text-secondary)",
     padding: "4px 8px",
     borderRadius: "4px",
     transition: "color 0.1s",
@@ -40,14 +43,8 @@ export default function NavControls({ flareonId, onOpenArchive }: NavControlsPro
         style={btnStyle}
         data-testid="nav-archive"
         onClick={handleArchive}
-        onMouseEnter={(e) =>
-          ((e.currentTarget as HTMLButtonElement).style.color =
-            "var(--text-primary)")
-        }
-        onMouseLeave={(e) =>
-          ((e.currentTarget as HTMLButtonElement).style.color =
-            "var(--text-secondary)")
-        }
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         Archive
       </button>

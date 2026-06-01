@@ -1,5 +1,5 @@
 // components/archive/BurstTimeline.tsx
-import BurstBlock from "@/components/archive/BurstBlock";
+import FormattedPreview from "@/components/formatting/FormattedPreview";
 import BurstDivider from "@/components/archive/BurstDivider";
 import type { Burst } from "@/lib/api";
 
@@ -52,9 +52,9 @@ export default function BurstTimeline({
               startedAt={burst.started_at}
               isActive={burst.id === activeBurstId}
             />
-            <BurstBlock
-              content={burst.content}
-              isActive={burst.id === activeBurstId}
+            <FormattedPreview
+              burstId={burst.id}
+              rawContent={burst.content}
             />
             {index < bursts.length - 1 && (
               <div style={{ height: "32px" }} />

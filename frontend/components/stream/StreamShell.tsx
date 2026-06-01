@@ -5,7 +5,10 @@ import StreamInput from "@/components/stream/StreamInput";
 import SessionIndicator from "@/components/stream/SessionIndicator";
 import NavControls from "@/components/stream/NavControls";
 import EmptyState from "@/components/common/EmptyState";
+import FormatButton from "@/components/formatting/FormatButton";
+import DiffReviewPanel from "@/components/formatting/DiffReviewPanel";
 import type { Flareon } from "@/lib/api";
+import type { FormattingDiff } from "@/types/formatting";
 
 interface StreamShellProps {
   activeFlareon: Flareon | null;
@@ -13,6 +16,20 @@ interface StreamShellProps {
   initialContent: string;
   burstStartedAt: string | null;
   onOpenArchive: () => void;
+
+  // NEW formatting props:
+  isFormatLoading: boolean;
+  hasDiffs: boolean;
+  pendingDiffCount: number;
+  isDiffPanelOpen: boolean;
+  diffs: FormattingDiff[];
+  onFormatClick: () => void;
+  onDiffAccept: (diffId: string) => void;
+  onDiffReject: (diffId: string) => void;
+  onDiffAcceptAll: () => void;
+  onDiffRejectAll: () => void;
+  onDiffPanelClose: () => void;
+  formatError: string | null;
 }
 
 export default function StreamShell({
@@ -21,6 +38,18 @@ export default function StreamShell({
   initialContent,
   burstStartedAt,
   onOpenArchive,
+  isFormatLoading,
+  hasDiffs,
+  pendingDiffCount,
+  isDiffPanelOpen,
+  diffs,
+  onFormatClick,
+  onDiffAccept,
+  onDiffReject,
+  onDiffAcceptAll,
+  onDiffRejectAll,
+  onDiffPanelClose,
+  formatError,
 }: StreamShellProps) {
   if (!activeFlareon) {
     return <EmptyState />;
@@ -54,16 +83,18 @@ export default function StreamShell({
         {activeFlareon.name}
       </div>
 
-      {/* Stream input — vertically centered */}
+      {/* Stream input — top-aligned writing area */}
       <div
         style={{
           flex: 1,
           display: "flex",
-          alignItems: "center",
-          padding: "0 var(--writing-padding-x)",
+          alignItems: "flex-start",
+          paddingTop: "10vh",
+          padding: "10vh var(--writing-padding-x) 0",
           maxWidth: "calc(var(--writing-max-width) + calc(var(--writing-padding-x) * 2))",
           width: "100%",
           alignSelf: "center",
+          overflowY: "auto",
         }}
       >
         <StreamInput
@@ -73,7 +104,7 @@ export default function StreamShell({
         />
       </div>
 
-      {/* Bottom controls — session indicator + nav */}
+      {/* Bottom controls — session indicator + nav + format button */}
       <div
         style={{
           display: "flex",
@@ -82,6 +113,7 @@ export default function StreamShell({
           padding: "16px var(--writing-padding-x) 24px",
           borderTop: "1px solid var(--border-subtle)",
           opacity: 0.6,
+          transition: "opacity 0.15s ease",
         }}
         onMouseEnter={(e) =>
           ((e.currentTarget as HTMLDivElement).style.opacity = "1")
@@ -91,8 +123,44 @@ export default function StreamShell({
         }
       >
         <SessionIndicator startedAt={burstStartedAt} />
-        <NavControls onOpenArchive={onOpenArchive} flareonId={activeFlareon.id} />
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <NavControls onOpenArchive={onOpenArchive} flareonId={activeFlareon.id} />
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "4px" }}>
+            {formatError && (
+              <span
+                style={{
+                  fontFamily: "var(--font-ui)",
+                  fontSize: "10px",
+                  color: "var(--text-muted)",
+                  letterSpacing: "0.03em",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {formatError}
+              </span>
+            )}
+            <FormatButton
+              onClick={onFormatClick}
+              isLoading={isFormatLoading}
+              hasDiffs={hasDiffs}
+              pendingCount={pendingDiffCount}
+              disabled={!burstId}
+            />
+          </div>
+        </div>
       </div>
+
+      {/* Diff review panel — fixed position, overlays right side */}
+      <DiffReviewPanel
+        isOpen={isDiffPanelOpen}
+        diffs={diffs}
+        pendingCount={pendingDiffCount}
+        onAccept={onDiffAccept}
+        onReject={onDiffReject}
+        onAcceptAll={onDiffAcceptAll}
+        onRejectAll={onDiffRejectAll}
+        onClose={onDiffPanelClose}
+      />
     </main>
   );
 }

@@ -55,7 +55,16 @@ export interface AppendChunkResponse {
 
 async function get<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`);
-  if (!res.ok) throw new Error(`GET ${path} failed: ${res.status}`);
+  if (!res.ok) {
+    let errorMsg = `GET ${path} failed: ${res.status}`;
+    try {
+      const data = await res.json();
+      if (data && data.detail) {
+        errorMsg = data.detail;
+      }
+    } catch {}
+    throw new Error(errorMsg);
+  }
   return res.json();
 }
 
@@ -65,9 +74,25 @@ async function post<T>(path: string, body: unknown): Promise<T> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
-  if (!res.ok) throw new Error(`POST ${path} failed: ${res.status}`);
+  if (!res.ok) {
+    let errorMsg = `POST ${path} failed: ${res.status}`;
+    try {
+      const data = await res.json();
+      if (data && data.detail) {
+        errorMsg = data.detail;
+      }
+    } catch {}
+    throw new Error(errorMsg);
+  }
   return res.json();
 }
+
+import type {
+  FormatBurstResponse,
+  DiffActionResponse,
+  BulkDiffActionResponse,
+  FormattedBurstResponse,
+} from "@/types/formatting";
 
 // ─── API Functions ────────────────────────────────────────────────────────────
 
@@ -101,5 +126,24 @@ export const api = {
 
   appendChunk: (burst_id: number, text: string) =>
     post<AppendChunkResponse>("/burst/append", { burst_id, text }),
+
+  // ─── V1.2 Formatting (new) ──────────────────────────────────────────────────
+  formatBurst: (burst_id: number) =>
+    post<FormatBurstResponse>("/format/burst", { burst_id }),
+
+  acceptDiff: (diff_id: string) =>
+    post<DiffActionResponse>("/format/diff/accept", { diff_id }),
+
+  rejectDiff: (diff_id: string) =>
+    post<DiffActionResponse>("/format/diff/reject", { diff_id }),
+
+  acceptAllDiffs: (burst_id: number) =>
+    post<BulkDiffActionResponse>("/format/diff/accept-all", { burst_id }),
+
+  rejectAllDiffs: (burst_id: number) =>
+    post<BulkDiffActionResponse>("/format/diff/reject-all", { burst_id }),
+
+  getFormattedBurst: (burst_id: number) =>
+    get<FormattedBurstResponse>(`/format/burst/${burst_id}`),
 };
 

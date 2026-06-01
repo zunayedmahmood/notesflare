@@ -1,0 +1,45 @@
+{
+  "started_at": "2026-06-01T18:32:59.051974+00:00",
+  "completed_at": "2026-06-01T18:35:30.379634+00:00",
+  "input": "/home/zunayed-mahmood/storage/Projects/NotesFlare/StabilisationModule/examples_1000.json",
+  "output": "/home/zunayed-mahmood/storage/Projects/NotesFlare/StabilisationModule/outputs/formatted_results.json",
+  "benchmark_database": "/home/zunayed-mahmood/storage/Projects/NotesFlare/StabilisationModule/outputs/stabilisation_benchmark.db",
+  "mode": "database_pipeline",
+  "examples_processed": 1000,
+  "examples_with_diffs": 916,
+  "examples_without_diffs": 84,
+  "total_diffs": 1192,
+  "average_diffs_per_example": 1.192,
+  "genre_counts": {
+    "architecture_notes": 100,
+    "brainstorming": 100,
+    "class_notes": 100,
+    "developer_notes": 100,
+    "lab_notes": 100,
+    "language_learning": 100,
+    "meeting_notes": 100,
+    "personal_thinking": 100,
+    "reading_notes": 100,
+    "research_notes": 100
+  },
+  "diffs_by_genre": {
+    "architecture_notes": 121,
+    "brainstorming": 130,
+    "class_notes": 122,
+    "developer_notes": 115,
+    "lab_notes": 123,
+    "language_learning": 104,
+    "meeting_notes": 117,
+    "personal_thinking": 125,
+    "reading_notes": 119,
+    "research_notes": 116
+  },
+  "operation_counts": {
+    "format_as_heading": 299,
+    "insert_line_break": 659,
+    "insert_paragraph_break": 234
+  },
+  "embedding_status_counts": {
+    "ok": 1000
+  }
+}

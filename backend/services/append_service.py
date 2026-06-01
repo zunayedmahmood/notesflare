@@ -19,7 +19,7 @@ and add 1. This is safe because the backend is single-threaded synchronous
 """
 
 from database.db import get_db
-from datetime import datetime, timezone
+import datetime
 
 
 def append_chunk(burst_id: int, text: str) -> int:
@@ -41,7 +41,7 @@ def append_chunk(burst_id: int, text: str) -> int:
         incorrectly after 30 minutes of inactivity even if the user resumed.
     """
     db = get_db()
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.datetime.now(datetime.timezone.utc).isoformat()
 
     # Get the next sequence number for this burst
     row = db.execute(

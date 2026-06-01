@@ -32,6 +32,26 @@
   --writing-max-width: 680px;
   --writing-padding-x: 60px;
   --writing-padding-y: 80px;
+
+  /* ─── V1.2 Formatting / Diff Colors ─────────────────────────────── */
+  /* Diff status colors */
+  --diff-pending:        #4A9EFF;   /* Blue — matches accent-burst */
+  --diff-pending-bg:     rgba(74, 158, 255, 0.06);
+  --diff-accepted:       #4ACA8A;   /* Green */
+  --diff-accepted-bg:    rgba(74, 202, 138, 0.06);
+  --diff-rejected:       #FF6B6B;   /* Red */
+  --diff-rejected-bg:    rgba(255, 107, 107, 0.06);
+
+  /* Diff review panel */
+  --panel-width:         360px;
+  --panel-bg:            #121216;
+  --panel-border:        #22222E;
+  --panel-header-height: 52px;
+
+  /* Format button */
+  --format-btn-color:    #7C6AF7;   /* accent-flare */
+  --format-btn-bg:       rgba(124, 106, 247, 0.08);
+  --format-btn-hover:    rgba(124, 106, 247, 0.15);
 }
 
 /* ─── Reset ──────────────────────────────────────── */
@@ -68,3 +88,9 @@ html, body {
   background: var(--accent-flare-dim);
   color: var(--text-primary);
 }
+
+/* ─── Diff Line Highlights ───────────────────────────────────────── */
+.diff-line-pending   { background: var(--diff-pending-bg);  }
+.diff-line-accepted  { background: var(--diff-accepted-bg); }
+.diff-line-rejected  { background: var(--diff-rejected-bg); }
+

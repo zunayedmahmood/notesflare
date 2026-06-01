@@ -16,7 +16,7 @@ export default function StreamInput({
   initialContent,
   onContentLength,
 }: StreamInputProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const {
     bufferRef,
@@ -31,10 +31,17 @@ export default function StreamInput({
     onSaveSuccess: markSynced,
   });
 
+  // Resize textarea to fit its content (no fixed height, grows with text)
+  function autoResize(el: HTMLTextAreaElement) {
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  }
+
   // Auto-focus on mount and on burstId change
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.value = initialContent;
+      autoResize(inputRef.current);
       inputRef.current.focus();
       // Place cursor at end
       const len = inputRef.current.value.length;
@@ -44,9 +51,11 @@ export default function StreamInput({
   }, [burstId, initialContent]); // Re-runs on Flareon switch
 
   const handleInput = useCallback(
-    (e: React.FormEvent<HTMLInputElement>) => {
-      const newValue = (e.currentTarget as HTMLInputElement).value;
+    (e: React.FormEvent<HTMLTextAreaElement>) => {
+      const el = e.currentTarget as HTMLTextAreaElement;
+      const newValue = el.value;
       bufferRef.current = newValue;
+      autoResize(el);
       onContentLength?.(newValue.length);
       scheduleAppend();
     },
@@ -54,9 +63,8 @@ export default function StreamInput({
   );
 
   return (
-    <input
+    <textarea
       ref={inputRef}
-      type="text"
       onInput={handleInput}
       data-testid="stream-input"
       defaultValue={initialContent}
@@ -66,6 +74,7 @@ export default function StreamInput({
       autoCorrect="off"
       autoCapitalize="sentences"
       spellCheck={true}
+      rows={1}
       style={{
         // Full width, no visible border, no background
         width: "100%",
@@ -80,10 +89,9 @@ export default function StreamInput({
         color: "var(--text-primary)",
         caretColor: "var(--cursor)",
 
-        // Overflow: text scrolls left, no scrollbar visible
+        // Textarea-specific: no scrollbar, grows to content
+        resize: "none",
         overflow: "hidden",
-        whiteSpace: "nowrap",
-        textOverflow: "clip",
 
         // No padding so text aligns flush to the stream shell
         padding: 0,

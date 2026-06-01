@@ -1,6 +1,7 @@
 # api/routes.py
 
 import os
+import sqlite3
 from pathlib import Path
 from database.db import get_db
 from fastapi import APIRouter, HTTPException
@@ -66,6 +67,10 @@ def create_flareon(body: FlareonCreate):
         return FlareonResponse(**flareon)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error occurred: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
 
 
 @router.get("/flareons/{flareon_id}", response_model=FlareonDetailResponse)
@@ -82,22 +87,29 @@ def open_flareon(flareon_id: int):
 
     The frontend renders all bursts and focuses the active one.
     """
-    flareon = flareon_service.get_flareon_by_id(flareon_id)
-    if not flareon:
-        raise HTTPException(status_code=404, detail="Flareon not found.")
+    try:
+        flareon = flareon_service.get_flareon_by_id(flareon_id)
+        if not flareon:
+            raise HTTPException(status_code=404, detail="Flareon not found.")
 
-    flareon_service.touch_flareon(flareon_id)
+        flareon_service.touch_flareon(flareon_id)
 
-    active_burst = burst_service.get_or_create_active_burst(flareon_id)
-    all_bursts = burst_service.get_all_bursts_for_flareon(flareon_id)
+        active_burst = burst_service.get_or_create_active_burst(flareon_id)
+        all_bursts = burst_service.get_all_bursts_for_flareon(flareon_id)
 
-    storage_service.update_app_state(flareon_id, active_burst["id"])
+        storage_service.update_app_state(flareon_id, active_burst["id"])
 
-    return FlareonDetailResponse(
-        flareon=FlareonResponse(**flareon),
-        bursts=[BurstResponse(**b) for b in all_bursts],
-        active_burst_id=active_burst["id"],
-    )
+        return FlareonDetailResponse(
+            flareon=FlareonResponse(**flareon),
+            bursts=[BurstResponse(**b) for b in all_bursts],
+            active_burst_id=active_burst["id"],
+        )
+    except HTTPException:
+        raise
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error occurred: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
 
 
 # ─── Content Save ─────────────────────────────────────────────────────────────
@@ -128,14 +140,19 @@ def session_resume():
 
     This replaces the V1 two-step startup (/api/state then /api/flareons/{id}).
     """
-    result = session_service.resume_session()
-    return SessionResumeResponse(
-        has_session=result["has_session"],
-        flareon=FlareonResponse(**result["flareon"]) if result["flareon"] else None,
-        burst_id=result["burst_id"],
-        stream_content=result["stream_content"],
-        started_at=result["started_at"],
-    )
+    try:
+        result = session_service.resume_session()
+        return SessionResumeResponse(
+            has_session=result["has_session"],
+            flareon=FlareonResponse(**result["flareon"]) if result["flareon"] else None,
+            burst_id=result["burst_id"],
+            stream_content=result["stream_content"],
+            started_at=result["started_at"],
+        )
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error occurred: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
 
 
 @router.post("/burst/append", response_model=AppendChunkResponse)
@@ -152,8 +169,13 @@ def append_to_burst(body: AppendChunkRequest):
     if not body.text:
         raise HTTPException(status_code=400, detail="text must not be empty.")
 
-    seq = append_service.append_chunk(body.burst_id, body.text)
-    return AppendChunkResponse(success=True, sequence_number=seq)
+    try:
+        seq = append_service.append_chunk(body.burst_id, body.text)
+        return AppendChunkResponse(success=True, sequence_number=seq)
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error occurred: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
 
 
 @router.get("/session/switch/{flareon_id}", response_model=FlareonSwitchResponse)
@@ -166,15 +188,18 @@ def switch_flareon(flareon_id: int):
     """
     try:
         result = session_service.switch_to_flareon(flareon_id)
+        return FlareonSwitchResponse(
+            flareon=FlareonResponse(**result["flareon"]),
+            burst_id=result["burst_id"],
+            stream_content=result["stream_content"],
+            started_at=result["started_at"],
+        )
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
-
-    return FlareonSwitchResponse(
-        flareon=FlareonResponse(**result["flareon"]),
-        burst_id=result["burst_id"],
-        stream_content=result["stream_content"],
-        started_at=result["started_at"],
-    )
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error occurred: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
 
 
 @router.post("/test/reset", include_in_schema=False)
@@ -193,14 +218,27 @@ def reset_test_database():
             )
         )
 
+    import database.db as db_mod
+    db_mod.close_all_connections()
+
     db = get_db()
     schema_path = Path(__file__).parent.parent / "database" / "schema.sql"
     db.execute("PRAGMA foreign_keys=OFF")
-    db.executescript("DROP TABLE IF EXISTS burst_entries; DROP TABLE IF EXISTS bursts; "
-                     "DROP TABLE IF EXISTS flareons; DROP TABLE IF EXISTS app_state;")
+    db.executescript(
+        "DROP TABLE IF EXISTS line_history; "
+        "DROP TABLE IF EXISTS burst_diffs; "
+        "DROP TABLE IF EXISTS burst_lines; "
+        "DROP TABLE IF EXISTS burst_entries; "
+        "DROP TABLE IF EXISTS bursts; "
+        "DROP TABLE IF EXISTS flareons; "
+        "DROP TABLE IF EXISTS app_state;"
+    )
     db.execute("PRAGMA foreign_keys=ON")
     db.executescript(schema_path.read_text())
     db.commit()
 
     return {"reset": True}
+
+
+
 
